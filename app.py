@@ -237,7 +237,7 @@ def login_required(f):
     return decorated_function
 # ဝင်ချင်တဲ့ Website Page ရဲ့ လိပ်စာ (သိုမဟုတ် Dashboard)
 # ဥပမာ - QR ဖတ်လိုက်တာနဲ့ https://yourwebsite.com/welcome ဆီ တိုက်ရိုက်ရောက်စေချင်တာ
-TARGET_PAGE_URL = "https://digitalwellbeingawarenessgoalfixed-production.up.railway.app/" 
+TARGET_PAGE_URL = "https://healthydigitallife-production.up.railway.app/" 
 
 @app.route('/generate-qr')
 def generate_qr():
