@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Direct QR Code</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background: #f4f4f9; }
+        .card { background: white; width: 300px; margin: 0 auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        img { width: 200px; height: 200px; }
+        .btn { background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+        @media print {
+            body { background: white; }
+            .btn { display: none; }
+            .card { box-shadow: none; border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h3>System Quick Access QR</h3>
+        <p>ဖုန်းဖြင့် Scan ဖတ်ရုံဖြင့် Page သို့ တိုက်ရိုက်ရောက်မည်</p>
+        
+        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+        
+        <p style="font-size: 12px; color: #666;">ဤ QR ကို ဖုန်းထဲတွင် သိမ်းထားနိုင်သည်</p>
+    </div>
+
+    <button class="btn" onclick="window.print()">Print Card</button>
+
+</body>
+</html>

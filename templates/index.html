@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Healthy Digital Life System</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(
+                135deg,
+                #e6fffa 0%,
+                #ccfbf1 50%,
+                #99f6e4 100%
+            );
+
+            color: #0f766e;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 15px;
+        }
+
+        /* =========================================
+           MAIN CALCULATOR CARD
+        ========================================== */
+
+        .calculator-card {
+            background: white;
+            width: 100%;
+            max-width: 760px;
+
+            padding: 40px;
+
+            border-radius: 28px;
+            border: 2px solid #99f6e4;
+
+            box-shadow:
+                0 20px 40px rgba(15, 118, 110, 0.15);
+        }
+
+        /* =========================================
+           HEADER
+        ========================================== */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+
+            border-bottom: 1px solid #99f6e4;
+        }
+
+        .header-title-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header h2 {
+            color: #0f766e;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .header-icon {
+            width: 45px;
+            height: 45px;
+
+            background: linear-gradient(
+                135deg,
+                #0d9488,
+                #115e59
+            );
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 22px;
+        }
+
+        .user-id-badge {
+            background: #ccfbf1;
+
+            padding: 8px 16px;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* =========================================
+           FORM
+        ========================================== */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 22px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #99f6e4;
+            border-radius: 14px;
+
+            background: #f0fdfa;
+
+            color: #115e59;
+
+            outline: none;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #0d9488;
+
+            box-shadow:
+                0 0 0 3px rgba(13, 148, 136, 0.12);
+        }
+
+        .time-inputs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .time-field {
+            flex: 1;
+        }
+
+        .time-field span {
+            display: block;
+
+            font-size: 11px;
+
+            margin-top: 4px;
+
+            color: #0d9488;
+        }
+
+        /* =========================================
+           BUTTONS
+        ========================================== */
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+
+            padding: 16px;
+
+            border: none;
+            border-radius: 14px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-calc {
+            background: linear-gradient(
+                135deg,
+                #0d9488,
+                #115e59
+            );
+
+            color: white;
+        }
+
+        .btn-clear {
+            background: #ccfbf1;
+
+            color: #0f766e;
+
+            border: 1px solid #99f6e4;
+        }
+
+        /* =========================================
+           RESULT MODAL
+        ========================================== */
+
+        .modal-overlay {
+            display: none;
+
+            position: fixed;
+            inset: 0;
+
+            background: rgba(15, 118, 110, 0.4);
+
+            backdrop-filter: blur(4px);
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+
+            width: 100%;
+            max-width: 720px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            border: 2px solid #99f6e4;
+        }
+
+        .modal-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #ccfbf1;
+
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #0f766e;
+        }
+
+        .close-btn {
+            border: none;
+
+            background: #ccfbf1;
+            color: #0f766e;
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+        /* =========================================
+           RESULT BOX
+        ========================================== */
+
+        .results-container {
+            background: #f0fdfa;
+
+            border: 1px solid #ccfbf1;
+
+            border-radius: 18px;
+
+            margin-bottom: 18px;
+
+            overflow: hidden;
+        }
+
+        .results-header {
+            background: #ccfbf1;
+
+            padding: 14px 20px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: #0f766e;
+
+            text-transform: uppercase;
+        }
+
+        .results-table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 16px 20px;
+
+            text-align: left;
+        }
+
+        .score-display-val {
+            font-size: 26px;
+
+            font-weight: 800;
+
+            color: #0f766e;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 16px;
+
+            border-radius: 30px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+        .badge.High {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge.Medium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .badge.Low {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .recommendations {
+            padding: 20px 30px;
+        }
+
+        .recommendations ul {
+            padding-left: 20px;
+        }
+
+        .recommendations li {
+            margin-bottom: 10px;
+            color: #115e59;
+        }
+
+        .model-info {
+            margin-top: 15px;
+
+            padding: 14px 18px;
+
+            background: #ecfeff;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            color: #0f766e;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .calculator-card {
+                padding: 22px;
+                border-radius: 22px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .header h2 {
+                font-size: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .results-table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         MAIN CALCULATOR
+    ========================================== -->
+
+    <div class="calculator-card">
+
+        <div class="header">
+
+            <div class="header-title-container">
+
+                <div class="header-icon">
+                    🛡
+                </div>
+
+                <h2>
+                    Healthy Digital Life System
+                </h2>
+
+            </div>
+
+            <div class="user-id-badge">
+                User ID:
+                <span id="userIdDisplay">1</span>
+            </div>
+
+        </div>
+        <div style="text-align: right;">
+            <a href="/" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid #99f6e4;">← Home</a>
+        </div>
+
+        <!-- =========================================
+             FORM
+        ========================================== -->
+
+        <form id="wellbeingForm">
+
+            <div class="form-grid">
+
+                <!-- AGE -->
+
+                <div class="input-group">
+
+                    <label>
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        min="1"
+                        max="100"
+                        placeholder="Enter age"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- GENDER -->
+
+                <div class="input-group">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select id="gender" required>
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TOTAL APP USAGE -->
+
+                <div class="input-group">
+
+                    <label>
+                        Total App Usage
+                    </label>
+
+                    <div class="time-inputs">
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="totalAppHours"
+                                min="0"
+                                max="24"
+                                value=" "
+                            >
+
+                            <span>
+                                Hours
+                            </span>
+
+                        </div>
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="totalAppMins"
+                                min="0"
+                                max="59"
+                                value=" "
+                            >
+
+                            <span>
+                                Minutes
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCREEN TIME -->
+
+                <div class="input-group">
+
+                    <label>
+                        Daily Screen Time
+                    </label>
+
+                    <div class="time-inputs">
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="screenTimeHours"
+                                min="0"
+                                max="24"
+                                value=" "
+                            >
+
+                            <span>
+                                Hours
+                            </span>
+
+                        </div>
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="screenTimeMins"
+                                min="0"
+                                max="59"
+                                value=" "
+                            >
+
+                            <span>
+                                Minutes
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SOCIAL MEDIA -->
+
+                <div class="input-group">
+
+                    <label>
+                        Social Media Usage
+                    </label>
+
+                    <div class="time-inputs">
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="socialMediaHours"
+                                min="0"
+                                max="24"
+                                value=" "
+                            >
+
+                            <span>
+                                Hours
+                            </span>
+
+                        </div>
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="socialMediaMins"
+                                min="0"
+                                max="59"
+                                value=" "
+                            >
+
+                            <span>
+                                Minutes
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+                <!-- GAMING -->
+
+                <div class="input-group">
+
+                    <label>
+                        Gaming App Usage
+                    </label>
+
+                    <div class="time-inputs">
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="gamingHours"
+                                min="0"
+                                max="24"
+                                value=" "
+                            >
+
+                            <span>
+                                Hours
+                            </span>
+
+                        </div>
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="gamingMins"
+                                min="0"
+                                max="59"
+                                value=" "
+                            >
+
+                            <span>
+                                Minutes
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- NUMBER OF APPS -->
+
+                <div class="input-group">
+
+                    <label>
+                        Number of Apps Used
+                    </label>
+
+                    <input
+                        type="number"
+                        id="appsCount"
+                        min="0"
+                        placeholder=" "
+                        required
+                    >
+
+                </div>
+
+                <!-- SLEEP -->
+
+                <div class="input-group">
+
+                    <label>
+                        Sleep Hours
+                    </label>
+
+                    <div class="time-inputs">
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="sleepHours"
+                                min="0"
+                                max="24"
+                                value=" "
+                            >
+
+                            <span>
+                                Hours
+                            </span>
+
+                        </div>
+
+                        <div class="time-field">
+
+                            <input
+                                type="number"
+                                id="sleepMins"
+                                min="0"
+                                max="59"
+                                value=" "
+                            >
+
+                            <span>
+                                Minutes
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="btn-group">
+
+                <button
+                    type="submit"
+                    class="btn btn-calc"
+                    id="calculateButton"
+                >
+                    Calculate Score
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-clear"
+                    id="clearButton"
+                >
+                    Clear Form
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- =========================================
+             RESULT MODAL
+        ========================================== -->
+
+        <div
+            id="resultModal"
+            class="modal-overlay"
+        >
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h3>
+                        Healthy Digital Life Assessment & Recommendations
+                    </h3>
+
+                    <button
+                        type="button"
+                        class="close-btn"
+                        id="closeModalButton"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- ASSESSMENT RESULT -->
+
+                <div class="results-container">
+
+                    <div class="results-header">
+                        Assessment Result
+                    </div>
+
+                    <table class="results-table">
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Healthy Digital Life Score
+                                </strong>
+                            </td>
+
+                            <td>
+                                <span
+                                    class="score-display-val"
+                                    id="scoreValue"
+                                >
+                                    0.00
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Awareness Level
+                                </strong>
+                            </td>
+
+                            <td>
+
+                                <span
+                                    id="awarenessBadge"
+                                    class="badge"
+                                >
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- RECOMMENDATIONS -->
+
+                <div class="results-container">
+
+                    <div class="results-header">
+                        Personalized Recommendations
+                    </div>
+
+                    <div class="recommendations">
+
+                        <ul id="recommendationBox">
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MODEL STATUS -->
+
+                <div class="model-info">
+
+                    🤖
+                    <strong>
+                        Model:
+                    </strong>
+
+                    Random Forest
+
+                    <br>
+
+                    🎯
+                    <strong>
+                        Target:
+                    </strong>
+
+                    Awareness Level
+
+                    <br>
+
+                    📊
+                    <strong>
+                        Confidence:
+                    </strong>
+
+                    <span id="confidenceValue">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           PAGE LOAD
+        ========================================== */
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            console.log("✅ Healthy Digital Life System Loaded");
+
+            const savedUserId =
+                localStorage.getItem("current_user_id") || "1";
+
+            const userIdDisplay =
+                document.getElementById("userIdDisplay");
+
+            if (userIdDisplay) {
+
+                userIdDisplay.textContent = savedUserId;
+
+            }
+
+        });
+
+
+        /* =========================================
+           GET TOTAL HOURS
+        ========================================== */
+
+        function getTotalHours(hoursId, minsId) {
+
+            const hoursElement =
+                document.getElementById(hoursId);
+
+            const minsElement =
+                document.getElementById(minsId);
+
+            if (!hoursElement || !minsElement) {
+
+                console.error(
+                    "Time input not found:",
+                    hoursId,
+                    minsId
+                );
+
+                return 0;
+
+            }
+
+            const hrs =
+                parseFloat(hoursElement.value) || 0;
+
+            const mins =
+                parseFloat(minsElement.value) || 0;
+
+            return hrs + (mins / 60);
+
+        }
+
+
+        /* =========================================
+           FORM SUBMIT
+        ========================================== */
+
+        document
+            .getElementById("wellbeingForm")
+            .addEventListener("submit", function (event) {
+
+                event.preventDefault();
+
+                calculateWellbeing();
+
+            });
+
+
+        /* =========================================
+           CALCULATE WELLBEING
+        ========================================== */
+
+        async function calculateWellbeing() {
+
+            const ageElement =
+                document.getElementById("age");
+
+            const genderElement =
+                document.getElementById("gender");
+
+            const appsElement =
+                document.getElementById("appsCount");
+
+            if (!ageElement ||
+                !genderElement ||
+                !appsElement) {
+
+                alert(
+                    "❌ Form elements are missing."
+                );
+
+                return;
+
+            }
+
+
+            const age =
+                parseFloat(ageElement.value);
+
+            const gender =
+                genderElement.value;
+
+            const appsCount =
+                parseInt(appsElement.value, 10);
+
+
+            /* =====================================
+               BASIC VALIDATION
+            ===================================== */
+
+            if (!Number.isFinite(age) || age <= 0) {
+
+                alert(
+                    "⚠️ Please enter a valid age."
+                );
+
+                return;
+
+            }
+
+
+            if (!gender) {
+
+                alert(
+                    "⚠️ Please select your gender."
+                );
+
+                return;
+
+            }
+
+
+            if (!Number.isInteger(appsCount) ||
+                appsCount < 0) {
+
+                alert(
+                    "⚠️ Please enter a valid number of apps."
+                );
+
+                return;
+
+            }
+
+
+            /* =====================================
+               GET TIME VALUES
+            ===================================== */
+
+            const totalApp =
+                getTotalHours(
+                    "totalAppHours",
+                    "totalAppMins"
+                );
+
+            const screenTime =
+                getTotalHours(
+                    "screenTimeHours",
+                    "screenTimeMins"
+                );
+
+            const socialMedia =
+                getTotalHours(
+                    "socialMediaHours",
+                    "socialMediaMins"
+                );
+
+            const gaming =
+                getTotalHours(
+                    "gamingHours",
+                    "gamingMins"
+                );
+
+            const sleepHours =
+                getTotalHours(
+                    "sleepHours",
+                    "sleepMins"
+                );
+
+
+            /* =====================================
+               RANGE VALIDATION
+            ===================================== */
+
+            const timeValues = [
+                totalApp,
+                screenTime,
+                socialMedia,
+                gaming,
+                sleepHours
+            ];
+
+
+            if (
+                timeValues.some(
+                    value =>
+                        !Number.isFinite(value) ||
+                        value < 0 ||
+                        value > 24
+                )
+            ) {
+
+                alert(
+                    "⚠️ Time values must be between 0 and 24 hours."
+                );
+
+                return;
+
+            }
+
+
+            /* =====================================
+               LOGICAL VALIDATION
+            ===================================== */
+
+            if (
+                socialMedia + gaming >
+                screenTime + 0.000001
+            ) {
+
+                alert(
+                    "⚠️ Social Media + Gaming cannot exceed Daily Screen Time."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                totalApp >
+                screenTime + 0.000001
+            ) {
+
+                alert(
+                    "⚠️ Total App Usage cannot exceed Daily Screen Time."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                socialMedia + gaming >
+                totalApp + 0.000001
+            ) {
+
+                alert(
+                    "⚠️ Social Media + Gaming cannot exceed Total App Usage."
+                );
+
+                return;
+
+            }
+
+
+            /* =====================================
+               GENDER ENCODING
+               
+               Male   = 0
+               Female = 1
+            ===================================== */
+
+            const genderValue =
+                gender === "Female" ? 1 : 0;
+
+
+            /* =====================================
+               PAYLOAD
+            ===================================== */
+
+            const payload = {
+
+                age: age,
+
+                gender: genderValue,
+
+                total_app_usage:
+                    Number(totalApp.toFixed(2)),
+
+                daily_screen_time:
+                    Number(screenTime.toFixed(2)),
+
+                number_of_apps:
+                    appsCount,
+
+                social_media_hours:
+                    Number(socialMedia.toFixed(2)),
+
+                gaming_hours:
+                    Number(gaming.toFixed(2)),
+
+                sleep_hours:
+                    Number(sleepHours.toFixed(2))
+
+            };
+
+
+            console.log(
+                "📤 Sending prediction data:",
+                payload
+            );
+
+
+            /* =====================================
+               BUTTON
+            ===================================== */
+
+            const calculateButton =
+                document.getElementById(
+                    "calculateButton"
+                );
+
+            if (calculateButton) {
+
+                calculateButton.disabled = true;
+
+                calculateButton.textContent =
+                    "Calculating...";
+
+            }
+
+
+            /* =====================================
+               SEND TO FLASK
+            ===================================== */
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/predict",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(payload)
+                        }
+                    );
+
+
+                console.log(
+                    "📥 Server response:",
+                    response.status
+                );
+
+
+                let result;
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    throw new Error(
+                        "Server returned an invalid response."
+                    );
+
+                }
+
+
+                console.log(
+                    "📊 Prediction result:",
+                    result
+                );
+
+
+                if (
+                    !response.ok ||
+                    result.status !== "success"
+                ) {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to calculate score."
+                    );
+
+                }
+
+
+                /* =====================================
+                   SCORE
+                   
+                   Score comes from Flask calculation.
+                ===================================== */
+
+                const score =
+                    Number(result.score);
+
+
+                if (!Number.isFinite(score)) {
+
+                    throw new Error(
+                        "Invalid wellbeing score received from server."
+                    );
+
+                }
+
+
+                /* =====================================
+                   AWARENESS LEVEL
+                   
+                   IMPORTANT:
+                   This comes directly from
+                   Random Forest model.
+                ===================================== */
+
+                const awarenessLevel =
+                    String(
+                        result.awareness_level ||
+                        result.prediction ||
+                        "Unknown"
+                    );
+
+
+                /* =====================================
+                   CONFIDENCE
+                ===================================== */
+
+                const confidence =
+                    Number(
+                        result.confidence || 0
+                    );
+
+
+                /* =====================================
+                   SAVE DATA
+                ===================================== */
+
+                const usageAnalysisData = {
+
+                    user_id:
+                        localStorage.getItem(
+                            "current_user_id"
+                        ) || "1",
+
+                    age: age,
+
+                    gender: gender,
+
+                    total_app_usage:
+                        Number(totalApp.toFixed(2)),
+
+                    screen_time:
+                        Number(screenTime.toFixed(2)),
+
+                    number_of_apps:
+                        appsCount,
+
+                    social_media_usage:
+                        Number(
+                            socialMedia.toFixed(2)
+                        ),
+
+                    gaming_usage:
+                        Number(
+                            gaming.toFixed(2)
+                        ),
+
+                    sleep_hours:
+                        Number(
+                            sleepHours.toFixed(2)
+                        ),
+
+                    wellbeing_score:
+                        Number(score.toFixed(2)),
+
+                    awareness_level:
+                        awarenessLevel
+
+                };
+
+
+                localStorage.setItem(
+                    "usage_analysis_data",
+                    JSON.stringify(
+                        usageAnalysisData
+                    )
+                );
+
+
+                /* =====================================
+                   SHOW RESULT
+                ===================================== */
+
+                const modal =
+                    document.getElementById(
+                        "resultModal"
+                    );
+
+                const scoreValue =
+                    document.getElementById(
+                        "scoreValue"
+                    );
+
+                const badge =
+                    document.getElementById(
+                        "awarenessBadge"
+                    );
+
+                const recBox =
+                    document.getElementById(
+                        "recommendationBox"
+                    );
+
+                const confidenceValue =
+                    document.getElementById(
+                        "confidenceValue"
+                    );
+
+
+                if (!modal ||
+                    !scoreValue ||
+                    !badge ||
+                    !recBox) {
+
+                    throw new Error(
+                        "Result elements are missing from HTML."
+                    );
+
+                }
+
+
+                scoreValue.textContent =
+                    score.toFixed(2);
+
+
+                badge.textContent =
+                    awarenessLevel;
+
+
+                badge.className =
+                    "badge " +
+                    awarenessLevel;
+
+
+                if (confidenceValue) {
+
+                    confidenceValue.textContent =
+                        (confidence * 100).toFixed(2) +
+                        "%";
+
+                }
+
+
+                /* =====================================
+                   RECOMMENDATIONS
+                ===================================== */
+
+                recBox.innerHTML = "";
+
+
+                const levelItem =
+                    document.createElement("li");
+
+                levelItem.textContent =
+                    "Your Random Forest predicted awareness level is " +
+                    awarenessLevel +
+                    ".";
+
+                recBox.appendChild(
+                    levelItem
+                );
+
+
+                if (
+                    Array.isArray(
+                        result.recommendations
+                    )
+                ) {
+
+                    result.recommendations
+                        .forEach(function (rec) {
+
+                            const li =
+                                document.createElement(
+                                    "li"
+                                );
+
+                            li.textContent = rec;
+
+                            recBox.appendChild(li);
+
+                        });
+
+                }
+
+
+                /* =====================================
+                   OPEN MODAL
+                ===================================== */
+
+                modal.style.display =
+                    "flex";
+
+                document.body.style.overflow =
+                    "hidden";
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Calculate Score Error:",
+                    error
+                );
+
+                alert(
+                    "❌ " + error.message
+                );
+
+            } finally {
+
+                if (calculateButton) {
+
+                    calculateButton.disabled =
+                        false;
+
+                    calculateButton.textContent =
+                        "Calculate Score";
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================
+           CLOSE MODAL
+        ========================================== */
+
+        function closeModal() {
+
+            const modal =
+                document.getElementById(
+                    "resultModal"
+                );
+
+            if (modal) {
+
+                modal.style.display =
+                    "none";
+
+            }
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        /* =========================================
+           CLOSE BUTTON
+        ========================================== */
+
+        document
+            .getElementById("closeModalButton")
+            .addEventListener(
+                "click",
+                closeModal
+            );
+
+
+        /* =========================================
+           CLEAR FORM
+        ========================================== */
+
+        function clearForm() {
+
+            const form =
+                document.getElementById(
+                    "wellbeingForm"
+                );
+
+            if (form) {
+
+                form.reset();
+
+            }
+
+
+            closeModal();
+
+            console.log(
+                "🧹 Form cleared."
+            );
+
+        }
+
+
+        /* =========================================
+           CLEAR BUTTON
+        ========================================== */
+
+        document
+            .getElementById("clearButton")
+            .addEventListener(
+                "click",
+                clearForm
+            );
+
+
+        /* =========================================
+           CLICK OUTSIDE MODAL
+        ========================================== */
+
+        document
+            .getElementById("resultModal")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target ===
+                        this
+                    ) {
+
+                        closeModal();
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

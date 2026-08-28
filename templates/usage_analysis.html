@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { min-height: 100vh; padding: 30px 15px; background: linear-gradient(135deg, #e6fffa 0%, #ccfbf1 50%, #99f6e4 100%); color: #0f766e; }
+        .container { width: 100%; max-width: 1000px; margin: auto; }
+        .header { background: white; border-radius: 24px; padding: 25px 30px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 2px solid #99f6e4; box-shadow: 0 15px 35px rgba(15,118,110,0.12); }
+        .title-area { display: flex; align-items: center; gap: 14px; }
+        .icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 15px; background: linear-gradient(135deg, #0d9488, #115e59); color: white; font-size: 24px; }
+        h1 { font-size: 23px; font-weight: 800; color: #0f766e; }
+        .subtitle { margin-top: 4px; font-size: 13px; color: #64748b; }
+        .card { background: white; border-radius: 24px; padding: 30px; border: 2px solid #99f6e4; box-shadow: 0 15px 35px rgba(15,118,110,0.12); margin-bottom: 25px; }
+        .card-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; color: #0f766e; }
+        .analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 18px; }
+        .analysis-box { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 18px; padding: 20px; }
+        .analysis-box h3 { font-size: 13px; color: #64748b; margin-bottom: 8px; }
+        .analysis-value { font-size: 22px; font-weight: 800; color: #0f766e; }
+        .status { display: inline-block; margin-top: 8px; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; }
+        .good { background: #dcfce7; color: #15803d; }
+        .warning { background: #fef3c7; color: #b45309; }
+        .danger { background: #fee2e2; color: #b91c1c; }
+        .score-box { background: linear-gradient(135deg, #ccfbf1, #f0fdfa); border: 1px solid #99f6e4; border-radius: 20px; padding: 25px; text-align: center; margin-bottom: 20px; }
+        .score-label { font-size: 13px; font-weight: 700; color: #64748b; }
+        .score { font-size: 42px; font-weight: 800; color: #0f766e; margin: 5px 0; }
+        .summary { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 18px; padding: 22px; line-height: 1.8; color: #065f46; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 13px; background: linear-gradient(135deg, #0d9488, #115e59); color: white; font-size: 15px; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title-area">
+            <div class="icon">📊</div>
+            <div>
+                <h1>Usage Analysis</h1>
+                <div class="subtitle">Your digital usage analysis</div>
+            </div>
+        </div>
+        <div style="text-align: right;">
+            <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid #99f6e4;">← Features</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Healthy Digital Life Overview</div>
+        <div class="score-box">
+            <div class="score-label">Healthy Digital Life Score</div>
+            <div class="score" id="score">--</div>
+        </div>
+            <div class="analysis-grid">
+            <div class="analysis-box">
+                <h3>Daily Screen Time</h3>
+                <div class="analysis-value" id="screenValue">--</div>
+                <span id="screenStatus" class="status"></span>
+            </div>
+            <div class="analysis-box">
+                <h3>Total App Usage</h3>
+                <div class="analysis-value" id="appValue">--</div>
+                <span id="appStatus" class="status"></span>
+            </div>
+            <div class="analysis-box">
+                <h3>Number of Apps</h3>
+                <div class="analysis-value" id="appsValue">--</div>
+                <span id="appsStatus" class="status"></span>
+            </div>
+            <div class="analysis-box">
+                <h3>Social Media Usage</h3>
+                <div class="analysis-value" id="socialValue">--</div>
+                <span id="socialStatus" class="status"></span>
+            </div>
+            <div class="analysis-box">
+                <h3>Gaming Usage</h3>
+                <div class="analysis-value" id="gamingValue">--</div>
+                <span id="gamingStatus" class="status"></span>
+            </div>
+            <div class="analysis-box">
+                <h3>Sleep Duration</h3>
+                <div class="analysis-value" id="sleepValue">--</div>
+                <span id="sleepStatus" class="status"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Usage Summary</div>
+        <div class="summary" id="summary"></div>
+    </div>
+
+    <button class="btn" onclick="window.location.href='/assessment'">← Back to Assessment</button>
+</div>
+
+<script>
+    window.onload = async function () {
+    // 1. Fetch Daily Usage (Critical)
+try {
+    const usageResponse = await fetch("/api/daily_usage");
+    const usageResult = await usageResponse.json();
+
+    if (!usageResult.success) throw new Error("No usage data");
+    const usage = usageResult.data;
+
+    // Screen Time
+    const screenTime = Number(usage.screen_time);
+    document.getElementById("screenValue").innerText = screenTime.toFixed(2) + " hrs";
+    setStatus("screenStatus", screenTime <= 4 ? "Healthy" : (screenTime <= 7 ? "Moderate" : "High"), screenTime <= 4 ? "good" : (screenTime <= 7 ? "warning" : "danger"));
+
+    // App Usage
+    const totalApp = Number(usage.total_app_usage);
+    document.getElementById("appValue").innerText = totalApp.toFixed(2) + " hrs";
+    setStatus("appStatus", totalApp <= 4 ? "Low" : (totalApp <= 7 ? "Moderate" : "High"), totalApp <= 4 ? "good" : (totalApp <= 7 ? "warning" : "danger"));
+
+    // Social Media (Key အမည်အမျိုးမျိုးကို စစ်ဆေးပြီး NaN မဖြစ်အောင် ကာကွယ်ခြင်း)
+    const socialRaw = usage.social_media ?? usage.social_media_usage ?? usage.socialMedia ?? 0;
+    const social = Number(socialRaw) || 0;
+
+    document.getElementById("socialValue").innerText = social.toFixed(2) + " hrs";
+    setStatus("socialStatus", social <= 2 ? "Healthy" : (social <= 4 ? "Moderate" : "High"), social <= 2 ? "good" : (social <= 2 ? "warning" : "danger"));
+    
+    // Gaming (Backend က 'gaming' ဖြစ်လို့ ပြင်ထားပါတယ်)
+    const gaming = Number(usage.gaming_usage || usage.gaming);
+    document.getElementById("gamingValue").innerText = gaming.toFixed(2) + " hrs";
+    setStatus("gamingStatus", gaming <= 2 ? "Healthy" : (gaming <= 4 ? "Moderate" : "High"), gaming <= 2 ? "good" : (gaming <= 4 ? "warning" : "danger"));
+
+    // Sleep
+    const sleep = Number(usage.sleep_hours);
+    document.getElementById("sleepValue").innerText = sleep.toFixed(2) + " hrs";
+    setStatus("sleepStatus", sleep >= 7 ? "Healthy" : (sleep >= 5 ? "Moderate" : "Low"), sleep >= 7 ? "good" : (sleep >= 5 ? "warning" : "danger"));
+
+    // Summary Generation
+    let summary = "";
+    summary += (screenTime > 7 ? "• Daily screen time is high.<br>" : "• Daily screen time is reasonable.<br>");
+    summary += (social > 4 ? "• Social media usage is high.<br>" : "• Social media usage is manageable.<br>");
+    summary += (gaming > 4 ? "• Gaming usage is high.<br>" : "• Gaming usage is manageable.<br>");
+    summary += (sleep < 7 ? "• Sleep duration is below 7 hours.<br>" : "• Sleep duration is good.<br>");
+    summary += "<br><strong>Overall:</strong> Maintain balance.";
+    document.getElementById("summary").innerHTML = summary;
+
+} catch (error) {
+    console.error(error);
+    alert("⚠️ Error loading data. Please ensure you have completed the assessment.");
+    window.location.href = "/assessment";
+    return;
+}
+
+// 2. Fetch Latest Assessment (Non-Critical)
+try {
+    const scoreResponse = await fetch("/api/latest_assessment");
+    const scoreResult = await scoreResponse.json();
+    if (scoreResult.success) {
+        document.getElementById("score").innerText = Number(scoreResult.data.wellbeing_score).toFixed(2);
+    }
+} catch (e) {
+    console.log("Could not load score, skipping.");
+}
+
+    // 3. Current User Check & Apps Status
+    try {
+    const userResp = await fetch("/current_user");
+    const userData = await userResp.json();
+    
+    if (userData.logged_in) {
+        // number_of_apps ရှိပါက အသုံးပြုသူထည့်ခဲ့သော ဂဏန်း + "apps" ပြမည်
+        const appsCount = (userData.number_of_apps !== undefined) ? userData.number_of_apps : 0;
+        document.getElementById("appsValue").innerText = appsCount + " apps";
+        
+        setStatus("appsStatus", "Tracked via Assessment", "good");
+    }
+} catch (e) {
+    console.log("Could not load user data.", e);
+}
+};
+    function setStatus(id, text, className) {
+        const el = document.getElementById(id);
+        if(el) {
+            el.innerText = text;
+            el.className = "status " + className;
+        }
+    }
+</script>
+</body>
+</html>

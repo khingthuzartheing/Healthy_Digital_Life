@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="my">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Healthy Digital Life System</title>
+
+    <!-- PWA Manifest & Theme Color -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#0d9488">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Padauk:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Plus Jakarta Sans', 'Padauk', sans-serif;
+            background: linear-gradient(
+                135deg,
+                #e6fffa 0%,
+                #ccfbf1 50%,
+                #99f6e4 100%
+            );
+            color: #0f766e;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-shadow: 0 2px 15px rgba(15, 118, 110, 0.10);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f766e;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-shrink: 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 5px 2px;
+            max-width: calc(100% - 140px);
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links a, .nav-links span.nav-item {
+            text-decoration: none;
+            color: #115e59;
+            font-size: 12px;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links span.nav-item:hover,
+        .nav-links a.active-link,
+        .nav-links span.active-link {
+            color: #0d9488;
+        }
+
+        .register-btn {
+            background: #0d9488;
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+            flex-shrink: 0;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .register-btn:hover {
+            background: #115e59;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.20);
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
+        }
+
+        .lang-btn {
+            background: #f0fdfa;
+            border: 1.5px solid #0d9488;
+            color: #0f766e;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 11px;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #0d9488;
+            color: white;
+        }
+
+        /* =========================
+           SECTION DISPLAY
+        ========================= */
+
+        .page-section {
+            display: none;
+            width: 100%;
+        }
+
+        .page-section.active-section {
+            display: block;
+            width: 100%;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 50px 8%;
+            background: linear-gradient(
+                135deg,
+                #e6fffa 0%,
+                #ccfbf1 50%,
+                #f0fdfa 100%
+            );
+            width: 100%;
+        }
+
+        .hero-text {
+            max-width: 620px;
+            width: 100%;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ccfbf1;
+            color: #0f766e;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            border: 1px solid #99f6e4;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            line-height: 1.25;
+            margin-bottom: 15px;
+            color: #115e59;
+        }
+
+        .hero h1 span {
+            color: #0d9488;
+        }
+
+        .hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #3f6865;
+            margin-bottom: 25px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.20);
+            cursor: pointer;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(13, 148, 136, 0.25);
+        }
+
+        .secondary-btn {
+            display: inline-block;
+            background: white;
+            color: #0f766e;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 1px solid #99f6e4;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .secondary-btn:hover {
+            background: #f0fdfa;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           HERO CARD
+        ========================= */
+
+        .hero-card {
+            width: 100%;
+            max-width: 350px;
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            border: 2px solid #99f6e4;
+            box-shadow: 0 20px 40px rgba(15, 118, 110, 0.15);
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .phone-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.20);
+        }
+
+        .hero-card h3 {
+            color: #0f766e;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .hero-card p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #4b6f6c;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            background: #f0fdfa;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #ccfbf1;
+        }
+
+        .score-title {
+            font-size: 12px;
+            color: #0d9488;
+        }
+        .score-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f766e;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           GOAL FORM
+        ========================= */
+
+        .goal-section {
+            padding: 60px 5%;
+            background: white;
+            width: 100%;
+        }
+
+        .goal-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: #f0fdfa;
+            padding: 30px 20px;
+            border-radius: 20px;
+            border: 1px solid #ccfbf1;
+            box-shadow: 0 8px 25px rgba(15, 118, 110, 0.08);
+        }
+
+        .goal-container h3 {
+            color: #115e59;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .goal-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .goal-form input,
+        .goal-form select {
+            flex: 1;
+            min-width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1.5px solid #99f6e4;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            background: white;
+            color: #0f766e;
+        }
+
+        .goal-form button {
+            width: 100%;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================= */
+
+        .section {
+            padding: 60px 5%;
+            background: #f0fdfa;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 26px;
+            color: #115e59;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: #4b6f6c;
+            font-size: 14px;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 18px;
+            border: 1px solid #ccfbf1;
+            box-shadow: 0 8px 30px rgba(15, 118, 110, 0.08);
+            height: 100%;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #0f766e;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .feature-card p {
+            color: #4b6f6c;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            margin: auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .step h3 {
+            color: #0f766e;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .step p {
+            color: #4b6f6c;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+        .cta {
+            margin: 20px auto 50px;
+            width: 90%;
+            max-width: 1200px;
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #0d9488, #115e59);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .cta h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #115e59;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            width: 100%;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1024px) {
+            .features,
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 35px;
+                padding: 40px 5%;
+                width: 100%;
+            }
+
+            .hero-text, .hero-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .features,
+            .steps {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .logo span {
+                font-size: 13px;
+            }
+            
+            .logo img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav>
+        <div
+            class="logo"
+            id="logoText"
+            onclick="showSection('home')"
+        >      
+            <img src="{{ url_for('static', filename='my_logo.png') }}" alt="Logo">
+            <span>Healthy Digital Life</span>
+        </div>
+        <div class="nav-links">
+
+            <span
+                onclick="showSection('home')"
+                id="navHome"
+                class="nav-item active-link"
+            >
+                Home
+            </span>
+
+            <span
+                onclick="showSection('features')"
+                id="navFeatures"
+                class="nav-item"
+            >
+                Features
+            </span>
+
+            <span
+                onclick="showSection('how-it-works')"
+                id="navHowItWorks"
+                class="nav-item"
+            >
+                How It Works
+            </span>
+
+            <span
+                onclick="showSection('goal-section')"
+                id="navSetGoal"
+                class="nav-item"
+            >
+                Set Goal
+            </span>
+            
+            <span
+                onclick="showSection('dashboard')"
+                id="navDashboard"
+                class="nav-item"
+            >
+                Dashboard
+            </span>
+
+            {% if session.get('user') %}
+                <a
+                    href="/assessment"
+                    class="nav-btn"
+                    id="navStartBtn"
+                >
+                    Start Assessment
+                </a>
+
+                <a
+                    href="/logout"
+                    class="register-btn"
+                >
+                    Logout
+                </a>
+            {% else %}
+                <a
+                    href="/auth"
+                    class="register-btn"
+                    id="navRegisterBtn"
+                >
+                    Login / Register
+                </a>
+                <a
+                    href="/auth"
+                    class="nav-btn"
+                    id="navStartBtn"
+                >
+                    Start Assessment
+                </a>
+            {% endif %}
+
+            <button
+                class="lang-btn"
+                onclick="toggleLanguage()"
+                id="langBtn"
+            >
+                မြန်မာ
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- =========================
+         HERO / HOME SECTION
+    ========================= -->
+
+    <div class="page-section active-section" id="home">
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <div
+                    class="badge"
+                    id="heroBadge"
+                >
+                    AI-Powered Healthy Digital Life System
+                </div>
+
+                <h1 id="heroTitle">
+                    Understand Your
+                    <span>Healthy Digital Life</span>
+                </h1>
+
+                <p id="heroDesc">
+                    Analyze your digital habits, understand your digital habits and improve your healthy digital life
+                    awareness level, and receive personalized recommendations
+                    to build healthier technology habits.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="{% if session.get('user') %}/assessment{% else %}/auth{% endif %}"
+                        class="primary-btn"
+                        id="heroStartBtn"
+                    >
+                        Start Assessment
+                    </a>
+
+                    <span
+                        onclick="showSection('how-it-works')"
+                        class="secondary-btn"
+                        id="heroLearnBtn"
+                    >
+                        Learn More
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- ASSESSMENT CARD -->
+
+            <div class="hero-card">
+
+                <div class="phone-icon">
+                    📱
+                </div>
+
+                <h3 id="cardTitle">
+                    Healthy Digital Life Assessment
+                </h3>
+
+                <p id="cardDesc">
+                    Your digital usage patterns are analyzed using a machine
+                    learning model to assess your healthy digital life
+                    awareness level.
+                </p>
+
+                <div class="score">
+
+                    <div
+                        class="score-title"
+                        id="scoreTitle"
+                    >
+                        Example Healthy Digital Life Score
+                    </div>
+
+                    <div class="score-value">
+                        78 / 100
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <h2 id="ctaHeading">
+                Ready to Check Your Healthy Digital Life?
+            </h2>
+            <p id="ctaDesc">
+                Start your assessment and discover how healthy your digital habits are.
+            </p>
+        </section>
+    </div>
+
+    <!-- =========================
+         DASHBOARD SECTION
+    ========================= -->
+
+    <section
+        class="section page-section"
+        id="dashboard"
+        style="background: white;"
+    >
+        <div class="section-title">
+            <h2 id="dashboardHeading">Your Dashboard</h2>
+            <p id="dashboardSubheading">Track your current screen time and goal progress.</p>
+        </div>
+        
+        <div class="goal-container" style="max-width: 650px; text-align: center;">
+            {% if goal %}
+                <h3 style="margin-bottom: 15px;">{{ goal.description }}</h3>
+                <p style="margin-bottom: 10px; color: #4b6f6c; font-size: 14px;">
+                    <strong>Target:</strong> {{ goal.target_hours }} Hours | <strong>Current:</strong> 
+                    {% set total_mins = goal.current_usage %}
+                    {% set hours = total_mins // 60 %}
+                    {% set minutes = total_mins % 60 %}
+                    {% if hours > 0 %}{{ hours }} hrs {% endif %}{{ minutes }} mins
+                </p>
+                
+                {% if goal.current_usage > (goal.target_hours * 60) %}
+                    <div style="background-color: #fff1f2; border: 1.5px solid #fda4af; color: #be123c; padding: 12px 16px; border-radius: 10px; margin-bottom: 15px; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>⚠️ သတိပေးချက် - သင်၏ ရည်မှန်းချက်ပမာဏ (Target) ကို ကျော်လွန်သွားပါပြီ။</span>
+                    </div>
+
+                    <div style="background-color: #fef2f2; border: 1px dashed #f87171; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: left;">
+                        <p style="font-weight: 700; color: #9f1239; margin-bottom: 8px; font-size: 13px;">💡 အကြံပြုချက်များ (Recommendations) - {{ goal.description }}:</p>
+                        <ul style="margin-left: 20px; font-size: 12px; color: #881337; line-height: 1.6;">
+                            {% if goal.description == 'Reduce Social Media Usage' %}
+                                <li>ဆိုရှယ်မီဒီယာ အက်ပ်အမျိုးအစားများအတွက် App Timer သတ်မှတ်ထားပါ။</li>
+                                <li>Notification အားလုံးကို ပိတ်ထားပြီး သတ်မှတ်ထားသော အချိန်တွင်သာ ဝင်ရောက်ကြည့်ရှုပါ။</li>
+                                <li>ဖုန်းကို အခြားနေရာတွင် ခေတ္တထားခဲ့ပြီး ဆိုရှယ်မီဒီယာနှင့် ဝေးရာတွင် အချိန်ကုန်ဆုံးပါ။</li>
+                            {% elif goal.description == 'Limit Daily Screen Time' %}
+                                <li>ဖုန်းသုံးစွဲချိန်ကို ခဏရပ်နားပြီး (Screen Break) အနားယူပါ။</li>
+                                <li>အသုံးမလိုသော အက်ပ်အကြောင်းကြားချက်များကို ပိတ်ထားပါ။</li>
+                                <li>ယနေ့အတွက် ကျန်ရှိသည့်အချိန်ကို အပြင်ထွက်ခြင်း သို့မဟုတ် စာဖတ်ခြင်းဖြင့် အစားထိုးပါ။</li>
+                            {% elif goal.description == 'Reduce Late-Night Phone Use' %}
+                                <li>အိပ်ရာဝင်ခါနီး မိနစ် ၃၀ အလိုမှစ၍ ဖုန်းသုံးစွဲခြင်းကို ရပ်တန့်ပါ။</li>
+                                <li>ညဘက်အိပ်စက်ချိန်တွင် ဖုန်းကို အိပ်ရာနှင့် ခပ်ခွာခွာတွင် ထားပါ။</li>
+                                <li>Night Shift သို့မဟုတ် Blue Light Filter ကို အမြဲအသုံးပြုပါ။</li>
+                            {% elif goal.description == 'Limit Gaming Time' %}
+                                <li>ဂိမ်းဆော့သည့် အချိန်များကို တိကျသော အချိန်ဇယားဆွဲကာ ကန့်သတ်ပါ။</li>
+                                <li>ဂိမ်းအစား ကိုယ်လက်လှုပ်ရှားမှု သို့မဟုတ် အခြား ဝါသနာပါရာ အလုပ်တစ်ခုခုဖြင့် အစားထိုးပါ။</li>
+                            {% elif goal.description == 'Increase Study/Work Focus' %}
+                                <li>Pomodoro နည်းလမ်းကို အသုံးပြု၍ အလုပ်လုပ်ပါ သို့မဟုတ် စာကျက်ပါ။</li>
+                                <li>အာရုံထွေပြားစေမည့် အက်ပ်များကို Do Not Disturb မုဒ်ဖြင့် ပိတ်ပင်ထားပါ။</li>
+                            {% elif goal.description == 'Take Regular Screen Breaks' %}
+                                <li>နာရီဝက် သို့မဟုတ် တစ်နာရီတစ်ကြိမ် ဖုန်းမျက်နှာပြင်မှ အကြည့်လွှဲကာ မျက်လုံးကို အနားပေးပါ။</li>
+                                <li>ထ எழுပြီး အကြောဆန့်ခြင်း (Stretching) သို့မဟုတ် ရေထသောက်ခြင်းများ ပြုလုပ်ပါ။</li>
+                            {% else %}
+                                <li>ဖုန်းသုံးစွဲချိန်ကို ခဏရပ်နားပြီး (Screen Break) အနားယူပါ။</li>
+                                <li>အသုံးမလိုသော အက်ပ်အကြောင်းကြားချက်များကို ပိတ်ထားပါ။</li>
+                                <li>ယနေ့အတွက် ကျန်ရှိသည့်အချိန်ကို အပြင်ထွက်ခြင်း သို့မဟုတ် စာဖတ်ခြင်းဖြင့် အစားထိုးပါ။</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <div style="background: #e0e0e0; border-radius: 10px; height: 20px; width: 100%; margin: 20px 0; overflow: hidden; border: 1px solid #ccfbf1;">
+                    <div style="background: {% if goal.current_usage > (goal.target_hours * 60) %}linear-gradient(135deg, #f43f5e, #be123c){% else %}linear-gradient(135deg, #0d9488, #115e59){% endif %}; height: 100%; border-radius: 10px; width: {{ percentage }}%; transition: width 0.4s ease;"></div>
+                </div>
+                
+                <p style="font-size: 16px; font-weight: 700; color: {% if goal.current_usage > (goal.target_hours * 60) %}#be123c{% else %}#0f766e{% endif %};">
+                    {{ percentage }}% Completed
+                </p>
+            {% else %}
+                <p style="color: #4b6f6c; margin-bottom: 20px; font-size: 14px;" id="noGoalText">There are currently no goals set.</p>
+                <span onclick="showSection('goal-section')" class="primary-btn" style="cursor: pointer;">Set a goal</span>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- =========================
+         GOAL SECTION
+    ========================= -->
+
+    <section
+        class="goal-section page-section"
+        id="goal-section"
+    >
+        <div class="goal-container">
+            <h3 id="goalFormTitle">
+                Set Your Healthy Digital Life Goal
+            </h3>
+
+            <form
+                onsubmit="saveGoal(event)"
+                class="goal-form"
+            >
+                <select
+                    name="description"
+                    required
+                    id="goalDescInput"
+                >
+                    <option value="" disabled selected id="goalDescDefaultOption">Goal Description</option>
+                    <option value="Reduce Social Media Usage">Reduce Social Media Usage</option>
+                    <option value="Limit Daily Screen Time">Limit Daily Screen Time</option>
+                    <option value="Reduce Late-Night Phone Use">Reduce Late-Night Phone Use</option>
+                    <option value="Limit Gaming Time">Limit Gaming Time</option>
+                    <option value="Increase Study/Work Focus">Increase Study/Work Focus</option>
+                    <option value="Take Regular Screen Breaks">Take Regular Screen Breaks</option>
+                </select>
+                
+                <input
+                    type="number"
+                    name="target_hours"
+                    placeholder="Target Hours"
+                    required
+                    id="goalTargetInput"
+                >
+
+                <button
+                    type="submit"
+                    id="goalSubmitBtn"
+                >
+                    Save Goal
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- =========================
+         FEATURES
+    ========================= -->
+
+    <section
+        class="section page-section"
+        id="features"
+    >
+        <div class="section-title">
+            <h2 id="featuresHeading">
+                What Our System Provides
+            </h2>
+            <p id="featuresSubheading">
+                Smart tools to help you understand and improve your digital habits.
+            </p>
+        </div>
+
+        <div class="features">
+            <!-- 1. USAGE ANALYSIS -->
+            <div class="feature-card" onclick="location.href='/usage_analysis'">
+                <div class="feature-icon">📱</div>
+                <h3 id="feat1Title">Usage Analysis</h3>
+                <p id="feat1Desc">Analyze your screen time, application usage, social media usage and sleep habits.</p>
+            </div>
+
+            <!-- 2. AI PREDICTION -->
+            <div class="feature-card" onclick="location.href='/ai_prediction'">
+                <div class="feature-icon">🤖</div>
+                <h3 id="feat2Title">AI Prediction</h3>
+                <p id="feat2Desc">Use a Random Forest machine learning model to assess your Healthy Digital Life level.</p>
+            </div>
+
+            <!-- 3. WELLBEING RESULTS -->
+            <div class="feature-card" onclick="location.href='/wellbeing_results'">
+                <div class="feature-icon">📊</div>
+                <h3 id="feat3Title">Healthy Digital Life Results</h3>
+                <p id="feat3Desc">View your Healthy Digital Life score, level and overall status.</p>
+            </div>
+
+            <!-- 4. RECOMMENDATIONS -->
+            <div class="feature-card" onclick="location.href='/recommendations'">
+                <div class="feature-icon">💡</div>
+                <h3 id="feat4Title">Recommendations</h3>
+                <p id="feat4Desc">Receive personalized suggestions based on your digital usage patterns.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================= -->
+
+    <section
+        class="section page-section"
+        id="how-it-works"
+    >
+        <div class="section-title">
+            <h2 id="howHeading">
+                How It Works
+            </h2>
+            <p id="howSubheading">
+                Four simple steps to understand your healthy digital life.
+            </p>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 id="step1Title">Enter Data</h3>
+                <p id="step1Desc">Provide information about your digital usage habits.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 id="step2Title">Analyze</h3>
+                <p id="step2Desc">The system processes your input data.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 id="step3Title">Predict</h3>
+                <p id="step3Desc">Random Forest predicts your awareness level.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 id="step4Title">Improve</h3>
+                <p id="step4Desc">Get personalized recommendations for healthier habits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+        © 2026
+        <span id="footerText">
+            Healthy Digital Life System
+        </span>
+    </footer>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register("{{ url_for('static', filename='sw.js') }}")
+                    .then((reg) => console.log('Service Worker registered!', reg))
+                    .catch((err) => console.log('Service Worker failed', err));
+            });
+        }
+
+        const translations = {
+            en: {
+                langBtn: "မြန်မာ",
+                logoText: "Healthy Digital Life",
+                navHome: "Home",
+                navDashboard: "Dashboard",
+                navFeatures: "Features",
+                navHowItWorks: "How It Works",
+                navSetGoal: "Set Goal",
+                navRegisterBtn: "Register",
+                navStartBtn: "Start Assessment",
+                heroBadge: "AI-Powered Healthy Digital Life System",
+                heroTitle: 'Understand Your <span>Healthy Digital Life</span>',
+                heroDesc: "Analyze your digital habits, understand your digital habits and improve your healthy digital life level, and receive personalized recommendations to build healthier technology habits.",
+                heroStartBtn: "Start Assessment →",
+                heroLearnBtn: "Learn More",
+                cardTitle: "Healthy Digital Life Assessment",
+                cardDesc: "Your digital usage patterns are analyzed using a machine learning model to assess your Healthy Digital Life level.",
+                scoreTitle: "Example Healthy Digital Life Score",
+                dashboardHeading: "Your Dashboard",
+                dashboardSubheading: "Track your current screen time and goal progress.",
+                goalFormTitle: "Set Your Healthy Digital Life Goal",
+                goalDescInput: "Goal Description",
+                goalTargetInput: "Target Minutes",
+                goalSubmitBtn: "Save Goal",
+                featuresHeading: "What Our System Provides",
+                featuresSubheading: "Smart tools to help you understand and improve your digital habits.",
+                feat1Title: "Usage Analysis",
+                feat1Desc: "Analyze your screen time, application usage, social media usage and sleep habits.",
+                feat2Title: "AI Prediction",
+                feat2Desc: "Use a Random Forest machine learning model to assess your Healthy Digital Life level.",
+                feat3Title: "Healthy Digital Life Results",
+                feat3Desc: "View your Healthy Digital Life score, level and overall status.",
+                feat4Title: "Recommendations",
+                feat4Desc: "Receive personalized suggestions based on your digital usage patterns.",
+                howHeading: "How It Works",
+                howSubheading: "Four simple steps to understand your healthy digital life.",
+                step1Title: "Enter Data",
+                step1Desc: "Provide information about your digital usage habits.",
+                step2Title: "Analyze",
+                step2Desc: "The system processes your input data.",
+                step3Title: "Predict",
+                step3Desc: "Random Forest predicts your awareness level.",
+                step4Title: "Improve",
+                step4Desc: "Get personalized recommendations for healthier habits.",
+                ctaHeading: "Ready to Check Your Healthy Digital Life?",
+                ctaDesc: "Start your assessment and discover how healthy your digital habits are.",
+                footerText: "Healthy Digital Life System",
+                alertText: "⚠️ Please complete the Assessment first."
+            },
+            my: {
+                langBtn: "English",
+                logoText: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်",
+                navHome: "ပင်မစာမျက်နှာ",
+                navDashboard: "ဒက်ရှ်ဘုတ်",
+                navFeatures: "လုပ်ဆောင်ချက်များ",
+                navHowItWorks: "အသုံးပြုပုံအဆင့်ဆင့်",
+                navSetGoal: "ရည်မှန်းချက် သတ်မှတ်ရန်",
+                navRegisterBtn: "စာရင်းသွင်းရန်",
+                navStartBtn: "စစ်ဆေးမှုစတင်ရန်",
+                heroBadge: "AI အခြေပြု ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်",
+                heroTitle: 'သင်၏ <span>ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်</span> ကိုလေ့လာပါ',
+                heroDesc: "သင်၏ ဒစ်ဂျစ်တယ်အသုံးပြုမှု အလေ့အထများကို လေ့လာဆန်းစစ်ပြီး နည်းပညာကို ကျန်းမာစွာ အသုံးပြုနိုင်ရန် ကိုယ်ပိုင် အကြံပြုချက်များကို ရယူပါ။",
+                heroStartBtn: "စစ်ဆေးမှုစတင်ရန် →",
+                heroLearnBtn: "ပိုမိုလေ့လာရန်",
+                cardTitle: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ် စစ်ဆေးမှု",
+                cardDesc: "သင်၏ နည်းပညာအသုံးပြုမှု ပုံစံများကို Machine Learning မော်ဒယ် သုံးပြီး စစ်ဆေးပေးမည် ဖြစ်ပါသည်။",
+                scoreTitle: "နမူနာ ရမှတ်",
+                dashboardHeading: "သင့်ဒက်ရှ်ဘုတ်",
+                dashboardSubheading: "သင်၏ လက်ရှိ Screen Time နှင့် ရည်မှန်းချက် တိုးတက်မှုကို ကြည့်ရှုပါ။",
+                goalFormTitle: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်တွက် ရည်မှန်းချက် သတ်မှတ်ပါ",
+                goalDescInput: "ရည်မှန်းချက် ဖော်ပြချက်",
+                goalTargetInput: "သတ်မှတ် မိနစ်",
+                goalSubmitBtn: "သိမ်းဆည်းပါ",
+                featuresHeading: "စနစ်မှ ပံ့ပိုးပေးထားသော ဝန်ဆောင်မှုများ",
+                featuresSubheading: "သင်၏ ဒစ်ဂျစ်တယ်အလေ့အထများကို မြှင့်တင်ရန် ကူညီပေးမည့် ကိရိယာများ။",
+                feat1Title: "အသုံးပြုမှု ဆန်းစစ်ချက်",
+                feat1Desc: "Screen time၊ အသုံးပြုသည့် App များ၊ ဆိုရှယ်မီဒီယာ သုံးစွဲမှုနှင့် အိပ်စက်မှု အလေ့အထများကို ဆန်းစစ်ပါ။",
+                feat2Title: "AI ဖြင့် ခန့်မှန်းချက်",
+                feat2Desc: "Random Forest Machine Learning မော်ဒယ်ကို အသုံးပြု၍ သင်၏ ဒစ်ဂျစ်တယ် သတိပြုမိမှုအဆင့်ကို ခန့်မှန်းပေးပါသည်။",
+                feat3Title: "စစ်ဆေးမှု ရလဒ်များ",
+                feat3Desc: "သင်၏ ကျန်းမာရေး စစ်ဆေးမှု ရမှတ်၊ အသိပညာအဆင့်နှင့် အခြေအနေအရပ်ရပ်ကို ကြည့်ရှုပါ။",
+                feat4Title: "အကြံပြုချက်များ",
+                feat4Desc: "သင်၏ သုံးစွဲမှုပုံစံပေါ် မူတည်၍ သင့်တော်သော ကိုယ်ပိုင်အကြံပြုချက်များကို ရယူပါ။",
+                howHeading: "အသုံးပြုပုံ အဆင့်ဆင့်",
+                howSubheading: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်ကို နားလည်စေရန် ရိုးရှင်းသော အဆင့် (၄) ဆင့်။",
+                step1Title: "ဒေတာထည့်သွင်းပါ",
+                step1Desc: "သင်၏ ဒစ်ဂျစ်တယ် အသုံးပြုမှု အလေ့အထ အချက်အလက်များကို ဖြည့်သွင်းပါ။",
+                step2Title: "ဆန်းစစ်ပါ",
+                step2Desc: "စနစ်မှ ထည့်သွင်းထားသော ဒေတာများကို တွက်ချက်ပေးမည်။",
+                step3Title: "ခန့်မှန်းပါ",
+                step3Desc: "Random Forest မှ သင်၏ အသိပညာအဆင့်ကို ခန့်မှန်းပေးမည်။",
+                step4Title: "မြှင့်တင်ပါ",
+                step4Desc: "ပိုမိုကောင်းမွန်သော အလေ့အထများအတွက် အကြံပြုချက်များ ရယူပါ။",
+                ctaHeading: "စစ်ဆေးမှု ပြုလုပ်ရန် အသင့်ဖြစ်ပြီလား?",
+                ctaDesc: "စစ်ဆေးမှုကို စတင်ပြီး သင်၏ ဒစ်ဂျစ်တယ် အလေ့အထများကို လေ့လာလိုက်ပါ။",
+                footerText: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး အသိပညာပေးစနစ်",
+                alertText: "⚠️ ကျေးဇူးပြု၍ စစ်ဆေးမှုကို ဦးစွာ ပထမ ပြီးမြောက်အောင် လုပ်ဆောင်ပေးပါ။"
+            }
+        };
+
+        let currentLang = localStorage.getItem('app_lang') || 'en';
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+            });
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+                setTimeout(() => {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 50);
+            }
+
+            const links = document.querySelectorAll('.nav-links .nav-item');
+            links.forEach(link => {
+                link.classList.remove('active-link');
+            });
+
+            if (sectionId === 'home') {
+                document.getElementById('navHome')?.classList.add('active-link');
+            }
+            if (sectionId === 'dashboard') {
+                document.getElementById('navDashboard')?.classList.add('active-link');
+            }
+            if (sectionId === 'features') {
+                document.getElementById('navFeatures')?.classList.add('active-link');
+            }
+            if (sectionId === 'how-it-works') {
+                document.getElementById('navHowItWorks')?.classList.add('active-link');
+            }
+            if (sectionId === 'goal-section') {
+                document.getElementById('navSetGoal')?.classList.add('active-link');
+            }
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('app_lang', lang);
+            const t = translations[lang];
+
+            document.getElementById('langBtn').innerText = t.langBtn;
+            document.getElementById('logoText').childNodes[3].nodeValue = " " + t.logoText;
+            document.getElementById('navHome').innerText = t.navHome;
+            document.getElementById('navDashboard').innerText = t.navDashboard;
+            document.getElementById('navFeatures').innerText = t.navFeatures;
+            document.getElementById('navHowItWorks').innerText = t.navHowItWorks;
+            document.getElementById('navSetGoal').innerText = t.navSetGoal;
+
+            const registerBtn = document.getElementById('navRegisterBtn');
+            if (registerBtn) {
+                registerBtn.innerText = t.navRegisterBtn;
+            }
+
+            document.getElementById('navStartBtn').innerText = t.navStartBtn;
+            document.getElementById('heroBadge').innerText = t.heroBadge;
+            document.getElementById('heroTitle').innerHTML = t.heroTitle;
+            document.getElementById('heroDesc').innerText = t.heroDesc;
+            document.getElementById('heroStartBtn').innerText = t.heroStartBtn;
+            document.getElementById('heroLearnBtn').innerText = t.heroLearnBtn;
+            document.getElementById('cardTitle').innerText = t.cardTitle;
+            document.getElementById('cardDesc').innerText = t.cardDesc;
+            document.getElementById('scoreTitle').innerText = t.scoreTitle;
+
+            if (document.getElementById('dashboardHeading')) {
+                document.getElementById('dashboardHeading').innerText = t.dashboardHeading;
+            }
+            if (document.getElementById('dashboardSubheading')) {
+                document.getElementById('dashboardSubheading').innerText = t.dashboardSubheading;
+            }
+
+            document.getElementById('goalFormTitle').innerText = t.goalFormTitle;
+            const defaultOpt = document.getElementById('goalDescDefaultOption');
+            if (defaultOpt) {
+                defaultOpt.innerText = t.goalDescInput;
+            }
+
+            document.getElementById('goalTargetInput').placeholder = t.goalTargetInput;
+            document.getElementById('goalSubmitBtn').innerText = t.goalSubmitBtn;
+            document.getElementById('featuresHeading').innerText = t.featuresHeading;
+            document.getElementById('featuresSubheading').innerText = t.featuresSubheading;
+            document.getElementById('feat1Title').innerText = t.feat1Title;
+            document.getElementById('feat1Desc').innerText = t.feat1Desc;
+            document.getElementById('feat2Title').innerText = t.feat2Title;
+            document.getElementById('feat2Desc').innerText = t.feat2Desc;
+            document.getElementById('feat3Title').innerText = t.feat3Title;
+            document.getElementById('feat3Desc').innerText = t.feat3Desc;
+            document.getElementById('feat4Title').innerText = t.feat4Title;
+            document.getElementById('feat4Desc').innerText = t.feat4Desc;
+            document.getElementById('howHeading').innerText = t.howHeading;
+            document.getElementById('howSubheading').innerText = t.howSubheading;
+            document.getElementById('step1Title').innerText = t.step1Title;
+            document.getElementById('step1Desc').innerText = t.step1Desc;
+            document.getElementById('step2Title').innerText = t.step2Title;
+            document.getElementById('step2Desc').innerText = t.step2Desc;
+            document.getElementById('step3Title').innerText = t.step3Title;
+            document.getElementById('step3Desc').innerText = t.step3Desc;
+            document.getElementById('step4Title').innerText = t.step4Title;
+            document.getElementById('step4Desc').innerText = t.step4Desc;
+            document.getElementById('ctaHeading').innerText = t.ctaHeading;
+            document.getElementById('ctaDesc').innerText = t.ctaDesc;
+            document.getElementById('footerText').innerText = t.footerText;
+        }
+
+        function toggleLanguage() {
+            const newLang = currentLang === 'en' ? 'my' : 'en';
+            updateLanguage(newLang);
+        }
+
+        function saveGoal(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('/set-goal', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/dashboard?section=dashboard&goal_saved=true"; 
+                } else {
+                    alert("Goal သိမ်းဆည်းရာတွင် အမှားတစ်ခုဖြစ်နေပါသည်။");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Connection error ဖြစ်နေပါသည်။");
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateLanguage(currentLang);
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('section') === 'features') {
+                showSection('features'); 
+            }
+            if (urlParams.has('goal_saved')) {
+                showSection('dashboard');
+            }
+        });
+    </script>
+</body>
+</html>

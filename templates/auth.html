@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Healthy Digital Life System</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Padauk:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family:
+                'Plus Jakarta Sans',
+                'Padauk',
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e6fffa 0%,
+                    #ccfbf1 50%,
+                    #99f6e4 100%
+                );
+
+            color: #0f766e;
+
+            min-height: 100vh;
+
+            padding: 20px;
+        }
+
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        .navbar {
+
+            background: white;
+
+            max-width: 1200px;
+
+            margin:
+                0 auto 30px auto;
+
+            padding:
+                16px 30px;
+
+            border-radius: 20px;
+
+            border:
+                2px solid #99f6e4;
+
+            box-shadow:
+                0 10px 30px
+                rgba(15, 118, 110, 0.10);
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+        }
+
+
+        .nav-brand {
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            color: #115e59;
+        }
+
+
+        .nav-brand span {
+
+            color: #0d9488;
+        }
+
+
+        .nav-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .welcome-text {
+
+            font-weight: 600;
+
+            color: #115e59;
+
+            font-size: 14px;
+
+            background: #f0fdfa;
+
+            padding:
+                6px 16px;
+
+            border-radius: 30px;
+
+            border:
+                1px solid #ccfbf1;
+        }
+
+
+        .btn-nav {
+
+            padding:
+                8px 22px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            text-decoration: none;
+
+            display: inline-block;
+        }
+
+
+        .btn-login {
+
+            background:
+                transparent;
+
+            color:
+                #0d9488;
+
+            border:
+                2px solid #0d9488;
+        }
+
+
+        .btn-login:hover {
+
+            background:
+                #0d9488;
+
+            color:
+                white;
+        }
+
+
+        .btn-register {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d9488,
+                    #115e59
+                );
+
+            color: white;
+
+            border:
+                2px solid transparent;
+        }
+
+
+        .btn-register:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(13, 148, 136, 0.25);
+        }
+
+
+        .btn-logout {
+
+            background:
+                #fee2e2;
+
+            color:
+                #dc2626;
+
+            border:
+                2px solid #fca5a5;
+        }
+
+
+        .btn-logout:hover {
+
+            background:
+                #dc2626;
+
+            color: white;
+
+            border-color:
+                #dc2626;
+        }
+
+
+        /* ==============================
+           AUTH
+        ============================== */
+
+        .auth-wrapper {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 70vh;
+        }
+
+
+        .auth-card {
+
+            background: white;
+            width: 100%;
+            max-width: 440px;
+
+            padding: 40px;
+
+            border-radius: 24px;
+
+            border:
+                2px solid #99f6e4;
+
+            box-shadow:
+                0 20px 40px
+                rgba(15, 118, 110, 0.15);
+        }
+
+
+        .auth-header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .auth-header h2 {
+
+            font-size: 26px;
+
+            color: #115e59;
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+
+        .auth-header p {
+
+            font-size: 14px;
+
+            color: #4b6f6c;
+
+            line-height: 1.6;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #0f766e;
+
+            margin-bottom: 8px;
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding:
+                12px 16px;
+
+            border:
+                1.5px solid #ccfbf1;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            color: #115e59;
+
+            background:
+                #f0fdfa;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+
+        .form-group input:focus {
+
+            border-color:
+                #0d9488;
+
+            background:
+                #ffffff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(13, 148, 136, 0.1);
+        }
+
+
+        .auth-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d9488,
+                    #115e59
+                );
+
+            color: white;
+
+            border: none;
+
+            border-radius: 12px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 20px
+                rgba(13, 148, 136, 0.20);
+
+            margin-top: 10px;
+        }
+
+
+        .auth-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(13, 148, 136, 0.25);
+        }
+
+
+        .auth-btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .switch-auth {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 14px;
+
+            color: #4b6f6c;
+        }
+
+
+        .switch-auth a {
+
+            color: #0d9488;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            cursor: pointer;
+        }
+
+
+        .switch-auth a:hover {
+
+            text-decoration:
+                underline;
+        }
+
+
+        .hidden {
+
+            display:
+                none !important;
+        }
+
+
+        /* ==============================
+           MESSAGE
+        ============================== */
+
+        .msg {
+
+            padding:
+                12px 16px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            margin-bottom: 18px;
+
+            display: none;
+
+            line-height: 1.5;
+        }
+
+
+        .msg.error {
+
+            display: block;
+
+            background:
+                #fee2e2;
+
+            color:
+                #dc2626;
+
+            border:
+                1px solid #fca5a5;
+        }
+
+
+        .msg.success {
+
+            display: block;
+
+            background:
+                #d1fae5;
+
+            color:
+                #065f46;
+
+            border:
+                1px solid #6ee7b7;
+        }
+
+
+        /* ==============================
+           DASHBOARD
+        ============================== */
+
+        .dashboard {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+        }
+
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(260px, 1fr)
+                );
+
+            gap: 24px;
+
+            margin-top: 30px;
+        }
+
+
+        .dash-card {
+
+            background: white;
+
+            padding:
+                28px 24px;
+
+            border-radius: 20px;
+
+            border:
+                2px solid #99f6e4;
+
+            box-shadow:
+                0 8px 20px
+                rgba(15, 118, 110, 0.08);
+
+            text-align: center;
+        }
+
+
+        .dash-card h3 {
+
+            font-size: 18px;
+
+            color:
+                #115e59;
+
+            margin-bottom: 6px;
+        }
+
+
+        .dash-card p {
+
+            font-size: 14px;
+
+            color:
+                #4b6f6c;
+        }
+
+
+        .dash-card .number {
+
+            font-size: 40px;
+
+            font-weight: 800;
+
+            color:
+                #0d9488;
+
+            margin:
+                12px 0 4px 0;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                flex-direction:
+                    column;
+
+                text-align:
+                    center;
+
+                padding:
+                    16px 20px;
+            }
+
+
+            .auth-card {
+
+                padding:
+                    28px 20px;
+            }
+
+
+            .dashboard-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================
+         NAVBAR
+    ============================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-brand">
+
+            🪴
+            <span>
+                Healthy Digital Life
+            </span>
+
+        </div>
+
+
+        <div
+            class="nav-buttons"
+            id="navButtons"
+        ></div>
+
+    </nav>
+
+
+    <!-- ============================
+         AUTH WRAPPER
+    ============================= -->
+
+    <div
+        id="authWrapper"
+        class="auth-wrapper"
+    >
+
+        <div class="auth-card">
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="authMessage"
+                class="msg"
+            ></div>
+
+
+            <!-- ========================
+                 LOGIN FORM
+            ========================= -->
+
+            <form
+                id="loginForm"
+                onsubmit="handleLogin(event)"
+            >
+
+                <div class="auth-header">
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+                    <p>
+                        Login to access your
+                        Healthy Digital Life dashboard
+                    </p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder=" "
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder=" "
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-btn"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+
+                <div class="switch-auth">
+
+                    Don't have an account?
+
+                    <a onclick="showRegister()">
+                        Register
+                    </a>
+                </div>
+            </form>
+
+
+            <!-- ========================
+                 REGISTER FORM
+            ========================= -->
+
+            <form
+                id="registerForm"
+                class="hidden"
+                onsubmit="handleRegister(event)"
+            >
+
+                <div class="auth-header">
+
+                    <h2>
+                        Create Account
+                    </h2>
+
+                    <p>
+                        Start your digital
+                        healthy digital life journey today
+                    </p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="regName"
+                        placeholder=" "
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="regEmail"
+                        placeholder=" "
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="regPassword"
+                        placeholder="Minimum 6 characters"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+            <!-- auth.html သို့မဟုတ် register form ထဲတွင် -->
+            <form action="{{ url_for('register') }}" method="POST">
+                <!-- User Input Field များ -->
+                <button
+                    type="submit"
+                    class="auth-btn"
+                    id="registerButton"
+                >
+                    Register
+                </button>
+            </form>
+
+                <div class="switch-auth">
+
+                    Already have an account?
+
+                    <a onclick="showLogin()">
+                        Login
+                    </a>
+
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================
+         DASHBOARD
+    ============================= -->
+
+    <!-- <div
+        id="dashboardWrapper"
+        class="dashboard hidden"
+    >
+
+        <h2
+            style="
+                font-size:28px;
+                color:#115e59;
+            "
+        >
+            📊 Your Dashboard
+        </h2>
+
+
+        <p
+            style="
+                color:#4b6f6c;
+                margin-top:4px;
+            "
+        >
+            Here's your healthy digital life overview
+        </p>
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="dash-card">
+
+                <h3>
+                    Screen Time
+                </h3>
+
+                <div
+                    class="number"
+                    id="dashScreenTime"
+                >
+                    4.2h
+                </div>
+
+                <p>
+                    Today's average
+                </p>
+
+            </div>
+
+
+            <div class="dash-card">
+
+                <h3>
+                    Focus Score
+                </h3>
+
+                <div
+                    class="number"
+                    id="dashFocus"
+                >
+                    87%
+                </div>
+
+                <p>
+                    Based on your activity
+                </p>
+
+            </div>
+            <div class="dash-card">
+                <h3>
+                    Mindfulness
+                </h3>
+
+                <div
+                    class="number"
+                    id="dashMindful"
+                >
+                    12
+                </div>
+
+                <p>
+                    Breaks taken today
+                </p>
+
+            </div>
+
+
+            <div class="dash-card">
+
+                <h3>
+                    Streak
+                </h3>
+
+                <div
+                    class="number"
+                    id="dashStreak"
+                >
+                    🔥 7
+                </div>
+
+                <p>
+                    Days in a row
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            style="
+                margin-top:30px;
+                padding:20px;
+                background:white;
+                border-radius:16px;
+                border:2px solid #99f6e4;
+                text-align:center;
+            "
+        >
+
+            <p
+                style="color:#4b6f6c;"
+            >
+                🎯 Keep going!
+                You're doing great.
+            </p>
+
+        </div>
+
+    </div> -->
+
+
+    <!-- ============================
+         JAVASCRIPT
+    ============================= -->
+
+    <script>
+
+
+        // ==========================================
+        // PAGE LOAD
+        // ==========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                checkCurrentUser();
+
+            }
+        );
+
+
+        // ==========================================
+        // CHECK SESSION
+        // ==========================================
+
+        async function checkCurrentUser() {
+
+            try {
+
+                const response = await fetch(
+                    "/current_user"
+                );
+
+                const data =
+                    await response.json();
+
+
+                if (data.logged_in) {
+
+                    showDashboard(
+                        data.user
+                    );
+
+                } else {
+
+                    showLogin();
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Session check error:",
+                    error
+                );
+
+                showLogin();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
+        async function handleLogin(event) {
+
+            event.preventDefault();
+
+            hideMessage();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
+                    if (!email || !password) {
+
+                showMessage(
+                    "Please fill in all fields.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "loginButton"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Logging in...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    showMessage(
+                        "✅ Login successful!",
+                        "success"
+                    );
+
+
+                    setTimeout(() => {
+                        window.location.href = "/"; // Home Page URL သို လမ်းကြောင်း ပြောင်းပေးမည်
+
+                    },
+                        500
+                    );
+
+
+                } else {
+
+                    showMessage(
+                        "❌ " + data.message,
+                        "error"
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+
+                showMessage(
+                    "❌ Cannot connect to server. Please make sure Flask is running.",
+                    "error"
+                );
+
+            }
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Login";
+
+        }
+
+
+        // ==========================================
+        // REGISTER
+        // ==========================================
+
+        async function handleRegister(event) {
+
+            event.preventDefault();
+
+            hideMessage();
+
+
+            const name =
+                document
+                    .getElementById(
+                        "regName"
+                    )
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "regEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "regPassword"
+                    )
+                    .value;
+
+
+            if (!name || !email || !password) {
+
+                showMessage(
+                    "Please fill in all fields.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                showMessage(
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "registerButton"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Creating account...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/register",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+                            body: JSON.stringify({
+
+                                name: name,
+
+                                email: email,
+
+                                password: password
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    showMessage(
+                        "✅ Registration successful! Please login.",
+                        "success"
+                    );
+
+
+                    document
+                        .getElementById(
+                            "registerForm"
+                        )
+                        .reset();
+
+
+                    setTimeout(
+                        function () {
+
+                            showLogin();
+
+                            document
+                                .getElementById(
+                                    "loginEmail"
+                                )
+                                .value = email;
+
+                        },
+                        1000
+                    );
+
+
+                } else {
+
+                    showMessage(
+                        "❌ " + data.message,
+                        "error"
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+
+                showMessage(
+                    "❌ Cannot connect to server. Please make sure Flask is running.",
+                    "error"
+                );
+
+            }
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Register";
+
+        }
+
+
+        // ==========================================
+        // SHOW LOGIN
+        // ==========================================
+
+        function showLogin() {
+
+            document
+                .getElementById(
+                    "loginForm"
+                )
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById(
+                    "registerForm"
+                )
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById(
+                    "authWrapper"
+                )
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById(
+                    "dashboardWrapper"
+                )
+                .classList
+                .add("hidden");
+
+
+            hideMessage();
+
+        }
+
+
+        // ==========================================
+        // SHOW REGISTER
+        // ==========================================
+
+        function showRegister() {
+
+            document
+                .getElementById(
+                    "loginForm"
+                )
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById(
+                    "registerForm"
+                )
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById(
+                    "authWrapper"
+                )
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById(
+                    "dashboardWrapper"
+                )
+                .classList
+                .add("hidden");
+
+
+            hideMessage();
+
+        }
+
+
+        // ==========================================
+        // SHOW DASHBOARD
+        // ==========================================
+
+        function showDashboard(user) {
+
+            const navButtons =
+                document.getElementById(
+                    "navButtons"
+                );
+
+
+            navButtons.innerHTML = `
+
+                <span class="welcome-text">
+                    👋 Hello,
+                    ${escapeHtml(user.username)}
+
+                </span>
+                <button
+                    class="btn-nav btn-logout"
+                    onclick="handleLogout()"
+                >
+                    Logout
+                </button>
+
+            `;
+
+
+            document
+                .getElementById(
+                    "authWrapper"
+                )
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById(
+                    "dashboardWrapper"
+                )
+                .classList
+                .remove("hidden");
+
+
+            updateDashboardStats();
+
+        }
+
+
+        // ==========================================
+        // LOGOUT
+        // ==========================================
+
+        async function handleLogout() {
+
+            const confirmLogout =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+
+            if (!confirmLogout) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/logout"
+                    );
+
+
+                if (response.ok) {
+
+                    showLogin();
+
+                    showMessage(
+                        "👋 You have been logged out.",
+                        "success"
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // MESSAGE
+        // ==========================================
+
+        function showMessage(
+            text,
+            type = "error"
+        ) {
+
+            const msg =
+                document.getElementById(
+                    "authMessage"
+                );
+
+
+            msg.textContent = text;
+
+
+            msg.className =
+                "msg " + type;
+
+
+            msg.style.display =
+                "block";
+
+        }
+
+
+        function hideMessage() {
+
+            const msg =
+                document.getElementById(
+                    "authMessage"
+                );
+
+
+            msg.className =
+                "msg";
+
+
+            msg.style.display =
+                "none";
+
+        }
+
+
+        // ==========================================
+        // DASHBOARD STATS
+        // ==========================================
+
+        function updateDashboardStats() {
+
+            const screenTime =
+                (
+                    3 +
+                    Math.random() * 4
+                ).toFixed(1);
+
+
+            const focus =
+                Math.floor(
+                    70 +
+                    Math.random() * 25
+                );
+
+
+            const mindful =
+                Math.floor(
+                    5 +
+                    Math.random() * 15
+                );
+
+
+            const streak =
+                Math.floor(
+                    3 +
+                    Math.random() * 10
+                );
+
+
+            document
+                .getElementById(
+                    "dashScreenTime"
+                )
+                .textContent =
+                screenTime + "h";
+
+
+            document
+                .getElementById(
+                    "dashFocus"
+                )
+                .textContent =
+                focus + "%";
+
+
+            document
+                .getElementById(
+                    "dashMindful"
+                )
+                .textContent =
+                mindful;
+
+
+            document
+                .getElementById(
+                    "dashStreak"
+                )
+                .textContent =
+                "🔥 " + streak;
+
+        }
+
+
+        // ==========================================
+        // ESCAPE HTML
+        // ==========================================
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+                div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+        // ==========================================
+        // ESC KEY
+        // ==========================================
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    hideMessage();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

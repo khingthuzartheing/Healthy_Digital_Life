@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Action Plan - Healthy Digital Life</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #e6fffa 0%, #ccfbf1 50%, #99f6e4 100%);
+            color: #0f766e;
+            min-height: 100vh;
+            padding: 40px 8%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(15, 118, 110, 0.12);
+            border: 2px solid #99f6e4;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: #115e59;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #4b6f6c;
+            margin-top: 5px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #0f766e;
+            font-weight: 700;
+            font-size: 14px;
+            background: #f0fdfa;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid #99f6e4;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ccfbf1;
+        }
+
+        /* Banner */
+        .status-banner {
+            background: #115e59;
+            color: white;
+            padding: 20px 25px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 20px rgba(17, 94, 89, 0.2);
+        }
+
+        .status-icon {
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .status-text h3 {
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .status-text p {
+            font-size: 13px;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+
+        /* Recommendations Grid */
+        .section-subtitle {
+            font-size: 20px;
+            color: #115e59;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .rec-card {
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            padding: 25px;
+            border-radius: 18px;
+            transition: 0.3s;
+        }
+
+        .rec-card:hover {
+            transform: translateY(-4px);
+            border-color: #0d9488;
+            box-shadow: 0 10px 25px rgba(13, 148, 136, 0.12);
+        }
+
+        .rec-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .rec-icon {
+            font-size: 24px;
+            background: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #99f6e4;
+        }
+
+        .rec-card h4 {
+            font-size: 17px;
+            color: #0f766e;
+        }
+        .rec-card p {
+            font-size: 14px;
+            color: #4b6f6c;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .action-tag {
+            display: inline-block;
+            background: #ccfbf1;
+            color: #0f766e;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;"><!-- ဘယ်ဘက် - ခေါင်းစဉ်နှင့် စာသား --><div style="text-align: left;"><h1 style="margin: 0; font-size: 24px; color: #0f766e;">💡 Personalized Action Plan</h1><p style="margin-top: 6px; color: #64748b; font-size: 14px;">Smart recommendations tailored to your digital habits</p></div><!-- ညာဘက် - Back to Features Button --><div><a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4; white-space: nowrap;">
+            ← Features
+        </a></div></div>
+
+        <!-- STATUS BANNER -->
+        <div class="status-banner">
+            <div class="status-icon">🎯</div>
+            <div class="status-text">
+                <h3>Analysis Completed</h3>
+                <p>We evaluated your usage patterns. Here are the most effective habits recommended for your focus and healthy digital life.</p>
+            </div>
+        </div>
+
+        <!-- RECOMMENDATIONS SECTION -->
+        <div class="section-subtitle">Recommended Actions</div>
+
+        <div class="recommendations-grid">
+
+            <!-- CARD 1 -->
+            <div class="rec-card">
+                <div class="rec-header">
+                    <div class="rec-icon">⏳</div>
+                    <h4>Limit Social Media Time</h4>
+                </div>
+                <p>Set a daily limit of 1 hour for social media apps to reduce digital fatigue and avoid mindless scrolling.</p>
+                <span class="action-tag">High Priority</span>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="rec-card">
+                <div class="rec-header">
+                    <div class="rec-icon">🌙</div>
+                    <h4>Nighttime Screen Detox</h4>
+                </div>
+                <p>Turn off screens 30 to 60 minutes before bedtime to improve your sleep quality and melatonin production.</p>
+                <span class="action-tag">Sleep Hygiene</span>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="rec-card">
+                <div class="rec-header">
+                    <div class="rec-icon">🔕</div>
+                    <h4>Manage Notifications</h4>
+                </div>
+                <p>Disable non-essential app notifications to maintain concentration during work or study hours.</p>
+                <span class="action-tag">Focus Booster</span>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="rec-card">
+                <div class="rec-header">
+                    <div class="rec-icon">🧘‍♂️</div>
+                    <h4>Take Regular Breaks</h4>
+                </div>
+                <p>Follow the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds to reduce eye strain.</p>
+                <span class="action-tag">Health Habit</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
