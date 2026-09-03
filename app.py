@@ -220,7 +220,7 @@ def login_required(f):
     return decorated_function
 
 
-TARGET_PAGE_URL = "https://healthydigitallife-production.up.railway.app/" 
+TARGET_PAGE_URL = "https://healthy-digital-life-git-main-hdl5.vercel.app/" 
 
 @app.route('/generate-qr')
 def generate_qr():
