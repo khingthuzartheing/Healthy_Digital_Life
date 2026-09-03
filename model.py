@@ -5,11 +5,11 @@ db = SQLAlchemy()
 
 
 # =========================================================
-# USER
+# USER MODEL (Dataset: User_ID, Age, Gender)
 # =========================================================
 
 class User(db.Model):
-    tablename = "user"  # __ ထည့်ထားပါသည်
+    __tablename__ = "user"
 
     user_id = db.Column(
         db.Integer,
@@ -33,6 +33,17 @@ class User(db.Model):
         nullable=False
     )
 
+    # Dataset ထဲပါသော User ၏ အသက်နှင့် ကျား/မ (Gender) ကို ထည့်သွင်းခြင်း
+    age = db.Column(
+        db.Integer,
+        nullable=True
+    )
+
+    gender = db.Column(
+        db.String(20),
+        nullable=True
+    )
+
     created_at = db.Column(
         db.DateTime,
         default=datetime.now
@@ -40,7 +51,7 @@ class User(db.Model):
 
 
 # =========================================================
-# ASSESSMENT LOG
+# ASSESSMENT LOG MODEL (Dataset: Digital_Wellbeing_Score, Awareness_Level)
 # =========================================================
 
 class AssessmentLog(db.Model):
@@ -67,18 +78,28 @@ class AssessmentLog(db.Model):
         nullable=False
     )
 
+    # အသက် နှင့် ကျား/မ ဒေတာများ ဝင်ရန် အသစ်ထည့်ရမည့် ကော်လံများ
+    age = db.Column(
+        db.Float,
+        nullable=True
+    )
+
+    gender = db.Column(
+        db.String(20),
+        nullable=True
+    )
+
     created_at = db.Column(
         db.DateTime,
         default=datetime.now
     )
 
-
 # =========================================================
-# DAILY USAGE
+# DAILY USAGE MODEL (Dataset ၏ Column အားလုံးနှင့် ကိုက်ညီရန်)
 # =========================================================
 
 class DailyUsage(db.Model):
-    tablename = "daily_usage"
+    __tablename__ = "daily_usage"
 
     usage_id = db.Column(
         db.Integer,
@@ -91,11 +112,7 @@ class DailyUsage(db.Model):
         nullable=False
     )
 
-    total_app_usage_hours = db.Column(
-        db.Float,
-        nullable=False
-    )
-
+    # app1.txt နှင့် အတိအကျ ကိုက်ညီစေရန် ပြင်ဆင်ထားသော Column နာမည်များ
     screen_time_hours = db.Column(
         db.Float,
         nullable=False
@@ -116,6 +133,30 @@ class DailyUsage(db.Model):
         nullable=False
     )
 
+    notification_count = db.Column(
+        db.Integer,
+        nullable=False,
+        default=0
+    )
+
+    number_of_apps_used = db.Column(
+        db.Integer,
+        nullable=False,
+        default=0
+    )
+
+    physical_activity = db.Column(
+        db.Float,
+        nullable=False,
+        default=0.0
+    )
+
+    night_time_usage_hours = db.Column(
+        db.Float,
+        nullable=False,
+        default=0.0
+    )
+
     log_date = db.Column(
         db.Date,
         default=date.today,
@@ -123,9 +164,12 @@ class DailyUsage(db.Model):
     )
 
 
+# =========================================================
+# GOAL MODEL
+# =========================================================
 
 class Goal(db.Model):
-    tablename = "goal"  # မှတ်ချက်။ ။ tablename နှစ်ဖက်စလုံးတွင် underscore နှစ်ခုစီပါရန်
+    tablename = "goal"
 
     goal_id = db.Column(
         db.Integer,
@@ -138,14 +182,19 @@ class Goal(db.Model):
         nullable=True
     )
 
-    # Target ကို နာရီ (Hours) ဖြင့် ထားရှိသည်
     target_hours = db.Column(
         db.Integer,
         nullable=False
     )
 
-    # Current ကို မိနစ် (Minutes) ဖြင့် ဆက်လက် သိမ်းဆည်းမည် (တွက်ချက်ရ လွယ်ကူစေရန်)
+    # 🟢 ဤနေရာတွင် current_usage ကော်လံကို ထည့်ပေးပါ
     current_usage = db.Column(
+        db.Integer,
+        default=0,
+        nullable=False
+    )
+
+    current_minutes = db.Column(
         db.Integer,
         default=0,
         nullable=False

@@ -32,7 +32,7 @@
         .analytics-card {
             background: white;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             padding: 35px;
             border-radius: 28px;
             border: 2px solid #99f6e4;
@@ -145,13 +145,15 @@
             border-radius: 14px;
             font-size: 13px;
         }
-            .summary-item label {
+
+        .summary-item label {
             display: block;
             font-size: 11px;
             color: #0d9488;
             font-weight: 700;
             margin-bottom: 4px;
         }
+
         .summary-item span {
             font-size: 16px;
             font-weight: 800;
@@ -173,19 +175,19 @@
     </div>
 
     <div style="text-align: right; margin-bottom: 20px;">
-        <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4;">
-            ← Features
+        <a href="/dashboard?section=features"  style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4;">
+            ⬅️ Features
         </a>
     </div>
 
-    <!-- 1. DATA မရှိသေးပါက ပြသမည့် WARNING BOX -->
+    <!-- 1. WARNING BOX -->
     <div id="noDataBox" class="warning-box">
         <h3>⚠️ Assessment Form ဖြည့်ရန် လိုအပ်ပါသည်။</h3>
         <p>AI Prediction ရယူရန်အတွက် အရင်ဆုံး Assessment Form ကို ဖြည့်စွက်ပေးပါ။</p>
-        <a href="assessment.html" class="btn-go">Go to Assessment Form</a>
+        <a href="/assessment" class="btn-go">Go to Assessment Form</a>
     </div>
 
-    <!-- 2. DATA ရှိပါက CHART များ ပြသမည့် အပိုင်း -->
+    <!-- 2. REPORT CONTENT -->
     <div id="reportContent" class="report-content">
         
         <div class="charts-grid">
@@ -201,17 +203,17 @@
                 </div>
             </div>
 
-            <!-- CHART 2: DAILY TIME BREAKDOWN (BAR CHART) -->
+            <!-- CHART 2: TIME BREAKDOWN (BAR CHART) -->
             <div class="chart-box">
-                <h4>Daily Usage & Sleep Breakdown (Hours)</h4>
+                <h4>Activities & Usage Breakdown (Hours)</h4>
                 <div style="width: 100%; height: 220px;">
                     <canvas id="usageChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- SUBMITTED DATA SUMMARY -->
-        <h4 style="margin-top: 25px; margin-bottom: 10px;">📊 Input Summary</h4>
+        <!-- SUBMITTED DATA SUMMARY (Updated Column Names matching app1_2.txt) -->
+        <h4 style="margin-top: 25px; margin-bottom: 10px;">📊 Complete Dataset Summary</h4>
         <div class="summary-grid">
             <div class="summary-item">
                 <label>USER ID</label>
@@ -226,10 +228,6 @@
                 <span id="sumScreenTime">0</span> hrs
             </div>
             <div class="summary-item">
-                <label>TOTAL APP USAGE</label>
-                <span id="sumAppUsage">0</span> hrs
-            </div>
-            <div class="summary-item">
                 <label>SOCIAL MEDIA</label>
                 <span id="sumSocial">0</span> hrs
             </div>
@@ -238,12 +236,24 @@
                 <span id="sumGaming">0</span> hrs
             </div>
             <div class="summary-item">
+                <label>NIGHT TIME USAGE</label>
+                <span id="sumNight">0</span> hrs
+            </div>
+            <div class="summary-item">
                 <label>SLEEP HOURS</label>
                 <span id="sumSleep">0</span> hrs
             </div>
             <div class="summary-item">
+                <label>PHYSICAL ACTIVITY</label>
+                <span id="sumPhysical">0</span> hrs/wk
+            </div>
+            <div class="summary-item">
                 <label>NUMBER OF APPS</label>
-                <span id="sumAppsCount">0</span>
+                <span id="sumApps">0</span>
+            </div>
+            <div class="summary-item">
+                <label>NOTIFICATION COUNT</label>
+                <span id="sumNotifications">0</span>
             </div>
         </div>
 
@@ -252,131 +262,146 @@
 
 <script>
     window.onload = function() {
-        // localStorage ထဲမှ Data ရယူခြင်း
-        const savedData = localStorage.getItem("usage_analysis_data");
+        // Fetch data from backend API endpoint to ensure exact mapping with app1_2.txt column names
+        fetch('/api/daily_usage')
+            .then(response => response.json())
+            .then(res => {
+                let data = null;
+                if (res.success && res.data) {
+                    data = res.data;
+                } else {
+                    // Fallback to localStorage if API data is missing
+                    const savedData = localStorage.getItem("usage_analysis_data");
+                    if (savedData) data = JSON.parse(savedData);
+                }
 
-        if (savedData) {
-            try {
-                const data = JSON.parse(savedData);
+                if (data) {
+                    // Show Report, Hide Warning
+                    document.getElementById("noDataBox").style.display = "none";
+                    document.getElementById("reportContent").style.display = "block";
+                    
+                    // Fill Text Summary Data using app1_2.txt exact keys
+                    document.getElementById("sumUserId").innerText = data.User_ID || "1";
+                    
+                    const age = data.Age !== undefined ? data.Age : '-';
+                    const gender = data.Gender !== undefined ? data.Gender : '-';
+                    document.getElementById("sumAgeGender").innerText = `${age} / ${gender}`;
 
-                // Warning Box ကိုဖျောက်ပြီး Chart Content ကိုပြမည်
-                document.getElementById("noDataBox").style.display = "none";
-                document.getElementById("reportContent").style.display = "block";
-                // Fill Text Summary Data
-                document.getElementById("sumUserId").innerText = data.user_id || "1";
-                
-                // [FIX 1]: ID ကို sumAgeGender ဟု ပြောင်းလဲပြီး Backtick () သုံးထားပါသည်
-                const age = data.age !== undefined ? data.age : '-';
-                const gender = data.gender !== undefined ? data.gender : '-';
-                document.getElementById("sumAgeGender").innerText = `${age} / ${gender}`;
+                    document.getElementById("sumScreenTime").innerText = Number(data.Daily_Screen_Time_Hours || 0).toFixed(2);
+                    document.getElementById("sumSocial").innerText = Number(data.Social_Media_Usage_Hours || 0).toFixed(2);
+                    document.getElementById("sumGaming").innerText = Number(data.Gaming_App_Usage_Hours || 0).toFixed(2);
+                    document.getElementById("sumNight").innerText = Number(data.Night_Time_Usage_Hours || 0).toFixed(2);
+                    document.getElementById("sumSleep").innerText = Number(data.Sleep_Hours || 0).toFixed(2);
+                    
+                    // Matched with Physical_Activity_Hours_Week from app1_2.txt
+                    const physicalVal = data.Physical_Activity_Hours_Week !== undefined ? data.Physical_Activity_Hours_Week : (data.Physical_Activity !== undefined ? data.Physical_Activity: 0);
+                    document.getElementById("sumPhysical").innerText = Number(physicalVal).toFixed(2);
 
-                document.getElementById("sumScreenTime").innerText = Number(data.screen_time || 0).toFixed(2);
-                document.getElementById("sumAppUsage").innerText = Number(data.total_app_usage || 0).toFixed(2);
-                document.getElementById("sumSocial").innerText = Number(data.social_media_usage || 0).toFixed(2);
-                document.getElementById("sumGaming").innerText = Number(data.gaming_usage || 0).toFixed(2);
-                document.getElementById("sumSleep").innerText = Number(data.sleep_hours || 0).toFixed(2);
-                document.getElementById("sumAppsCount").innerText = data.number_of_apps || 0;
+                    document.getElementById("sumApps").innerText = data.Number_of_Apps_Used || 0;
+                    document.getElementById("sumNotifications").innerText = data.Notification_Count || 0;
 
-                // Level Badge
-                const badge = document.getElementById("displayBadge");
-                const level = data.awareness_level || 'Low';
-                badge.innerText = level;
-                badge.className = "badge " + level;
+                    // Level Badge
+                    const badge = document.getElementById("displayBadge");
+                    const level = data.Awareness_Level || 'Low';
+                    badge.innerText = level;
+                    badge.className = "badge " + level;
 
-                // ==========================================
-                // CHART 1: SCORE GAUGE (DOUGHNUT CHART)
-                // ==========================================
-                const scoreVal = Number(data.wellbeing_score || 0).toFixed(2);
-                const remainingVal = (100 - scoreVal).toFixed(2);
+                    // ==========================================
+                    // CHART 1: SCORE GAUGE (DOUGHNUT CHART)
+                    // ==========================================
+                    const scoreVal = Number(data.Digital_Wellbeing_Score || 0).toFixed(2);
+                    const remainingVal = (100 - scoreVal).toFixed(2);
 
-                const ctxScore = document.getElementById('scoreChart').getContext('2d');
-                new Chart(ctxScore, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Score', 'Remaining'],
-                        datasets: [{
-                            data: [scoreVal, remainingVal],
-                            backgroundColor: ['#0d9488', '#e2e8f0'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '75%',
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: { enabled: true }
-                        }
-                    },
-                    plugins: [{
-                        id: 'textInside',
-                        afterDraw: function(chart) {
-                            let width = chart.width,
-                                height = chart.height,
-                                ctx = chart.ctx;
-                            ctx.restore();
-                            let fontSize = (height / 114).toFixed(2);
-                            ctx.font = "bold " + fontSize + "em Plus Jakarta Sans";
-                            ctx.textBaseline = "middle";
-                            ctx.fillStyle = "#0f766e";
-                            
-                            let text = scoreVal,
-                                textX = Math.round((width - ctx.measureText(text).width) / 2),
-                                textY = height / 2;
-                            
-                            ctx.fillText(text, textX, textY);
-                            ctx.save();
-                        }
-                    }]
-                });
-
-                // ==========================================
-                // CHART 2: USAGE BREAKDOWN (BAR CHART)
-                // ==========================================
-                const ctxUsage = document.getElementById('usageChart').getContext('2d');
-                new Chart(ctxUsage, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Screen Time', 'App Usage', 'Social Media', 'Gaming', 'Sleep'],
-                        datasets: [{
-                            label: 'Hours Per Day',
-                            data: [
-                                data.screen_time || 0,
-                                data.total_app_usage || 0,
-                                data.social_media_usage || 0,
-                                data.gaming_usage || 0,
-                                data.sleep_hours || 0
-                            ],
-                            backgroundColor: [
-                                '#0284c7', // Screen Time (Blue)
-                                '#0d9488', // Total App Usage (Teal)
-                                '#f59e0b', // Social Media (Amber)
-                                '#ef4444', // Gaming (Red)
-                                '#10b981'  // Sleep (Green)
-                            ],
-                            borderRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
+                    const ctxScore = document.getElementById('scoreChart').getContext('2d');
+                    new Chart(ctxScore, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Score', 'Remaining'],
+                            datasets: [{
+                                data: [scoreVal, remainingVal],
+                                backgroundColor: ['#0d9488', '#e2e8f0'],
+                                borderWidth: 0
+                            }]
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 24,
-                                title: { display: true, text: 'Hours' }
+                        options: {
+                            cutout: '75%',
+                            responsive: true,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: true }
+                            }
+                        },
+                        plugins: [{
+                            id: 'textInside',
+                            afterDraw: function(chart) {
+                                let width = chart.width,
+                                    height = chart.height,
+                                    ctx = chart.ctx;
+                                ctx.restore();
+                                let fontSize = (height / 114).toFixed(2);
+                                ctx.font = "bold " + fontSize + "em Plus Jakarta Sans";
+                                ctx.textBaseline = "middle";
+                                ctx.fillStyle = "#0f766e";
+                                
+                                let text = scoreVal,
+                                    textX = Math.round((width - ctx.measureText(text).width) / 2),
+                                    textY = height / 2;
+                                
+                                ctx.fillText(text, textX, textY);
+                                ctx.save();
+                            }
+                        }]
+                    });
+
+                    // ==========================================
+                    // CHART 2: USAGE & ACTIVITIES BREAKDOWN (BAR CHART)
+                    // ==========================================
+                    const ctxUsage = document.getElementById('usageChart').getContext('2d');
+                    new Chart(ctxUsage, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Screen Time', 'Social', 'Gaming', 'Night Time', 'Sleep', 'Physical (W)'],
+                            datasets: [{
+                                label: 'Hours',
+                                data: [
+                                    Number(data.Daily_Screen_Time_Hours || 0),
+                                    Number(data.Social_Media_Usage_Hours || 0),
+                                    Number(data.Gaming_App_Usage_Hours || 0),
+                                    Number(data.Night_Time_Usage_Hours || 0),
+                                    Number(data.Sleep_Hours || 0),
+                                    Number(physicalVal)
+                                ],
+                                backgroundColor: [
+                                    '#0284c7', // Screen Time (Blue)
+                                    '#f59e0b', // Social Media (Amber)
+                                    '#ef4444', // Gaming (Red)
+                                    '#6366f1', // Night Time (Indigo)
+                                    '#10b981', // Sleep (Green)
+                                    '#14b8a6'  // Physical Activity (Teal)
+                                ],
+                                borderRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 24,
+                                    title: { display: true, text: 'Hours' }
+                                }
                             }
                         }
-                    }
-                });
-
-            } catch (err) {
-                console.error("Data Parsing/Rendering Error:", err);
-            }
-        }
+                    });
+                }
+            })
+            .catch(err => {
+                console.error("Data Fetching/Rendering Error:", err);
+            });
     };
 </script>
 

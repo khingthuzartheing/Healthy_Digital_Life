@@ -25,7 +25,7 @@
 
         .dashboard-container {
             width: 100%;
-            max-width: 950px;
+            max-width: 1050px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 35px;
@@ -69,7 +69,7 @@
         /* KPI CARDS GRID */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 16px;
             margin-bottom: 25px;
         }
@@ -85,7 +85,7 @@
         }
 
         .kpi-title { font-size: 12px; font-weight: 700; color: #0d9488; text-transform: uppercase; }
-        .kpi-value { font-size: 26px; font-weight: 800; color: #0f766e; }
+        .kpi-value { font-size: 24px; font-weight: 800; color: #0f766e; }
         .kpi-subtext { font-size: 12px; color: #64748b; }
 
         .status-badge {
@@ -125,6 +125,7 @@
             align-self: flex-start;
             color: #0f766e;
         }
+        
         .chart-wrapper {
             position: relative;
             width: 100%;
@@ -162,7 +163,7 @@
         .progress-item { display: flex; flex-direction: column; gap: 6px; }
         .progress-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
         .progress-bar-bg { background: #e2e8f0; height: 10px; border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; border-radius: 10px; background: #0d9488; transition: width 0.5s ease; }
+        .progress-bar-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
 
         /* AI SUMMARY BANNER */
         .ai-banner {
@@ -188,38 +189,48 @@
 <body>
 
 <div class="dashboard-container">
-    <!-- TOP NAVIGATION & HEADER (TITLE ON LEFT, BUTTON ON RIGHT) -->
+    <!-- TOP NAVIGATION & HEADER -->
     <div class="top-nav">
         <div class="page-title">
             <h2>📊 Healthy Digital Life Analytics Dashboard</h2>
-            <p>Personalized usage insights and habit balance assessment</p>
+            <p>Dataset-aligned personalized insights and habits assessment</p>
         </div>
-        <a href="/dashboard?section=features" class="btn-back">
-            ⬅ Features
+        <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4; white-space: nowrap;">
+            ⬅️ Features
         </a>
     </div>
 
-    <!-- 1. TOP KPI CARDS GRID -->
+    <!-- 1. TOP KPI CARDS GRID (All Dataset Columns Included) -->
     <div class="kpi-grid">
         <div class="kpi-card">
-            <span class="kpi-title">Overall Score</span>
+            <span class="kpi-title">Wellbeing Score</span>
             <span id="kpiScore" class="kpi-value">0.00</span>
-            <span class="kpi-subtext">Out of 100 points</span>
+            <span class="kpi-subtext">Digital Wellbeing Score</span>
         </div>
         <div class="kpi-card">
             <span class="kpi-title">Awareness Level</span>
             <span id="kpiBadge" class="status-badge High">Analyzing...</span>
-            <span class="kpi-subtext">Based on AI prediction</span>
+            <span class="kpi-subtext">ML Prediction Level</span>
         </div>
         <div class="kpi-card">
-            <span class="kpi-title">Daily Screen Time</span>
-            <span id="kpiScreen" class="kpi-value">0.00 hrs</span>
-            <span class="kpi-subtext">Average per day</span>
+            <span class="kpi-title">Screen & Sleep</span>
+            <span id="kpiScreenSleep" class="kpi-value">0.00 / 0.00</span>
+            <span class="kpi-subtext">Screen / Sleep (hrs)</span>
         </div>
         <div class="kpi-card">
-            <span class="kpi-title">Sleep Quality</span>
-            <span id="kpiSleep" class="kpi-value">0.00 hrs</span>
-            <span class="kpi-subtext">Daily rest duration</span>
+            <span class="kpi-title">Notifications & Apps</span>
+            <span id="kpiNotifApps" class="kpi-value">0 / 0</span>
+            <span class="kpi-subtext">Count / Active Apps</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-title">Activity & Night</span>
+            <span id="kpiActNight" class="kpi-value">0.00 / 0.00</span>
+            <span class="kpi-subtext">Physical / Night (hrs)</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-title">User Profile</span>
+            <span id="kpiProfile" class="kpi-value">Age: -</span>
+            <span id="kpiGender" class="kpi-subtext">Gender: -</span>
         </div>
     </div>
 
@@ -227,7 +238,7 @@
     <div class="charts-grid">
         <!-- Chart 1: Donut Score -->
         <div class="chart-card">
-            <h4>Healthy Digital Life Score Distribution</h4>
+            <h4>Digital Wellbeing Score Distribution</h4>
             <div class="chart-wrapper">
                 <canvas id="scoreGauge"></canvas>
                 <div class="gauge-center-text">
@@ -246,13 +257,13 @@
         </div>
     </div>
 
-    <!-- 3. DETAILED BREAKDOWN (PROGRESS BARS WITH 2 DECIMAL PLACES) -->
+    <!-- 3. DETAILED BREAKDOWN (PROGRESS BARS) -->
     <div class="details-section">
         <h4>📱 Usage Breakdown vs Healthy Limits</h4>
         <div class="progress-group">
             <div class="progress-item">
                 <div class="progress-header">
-                    <span>Screen Time Limit</span>
+                    <span>Daily Screen Time</span>
                     <span id="screenText">0.00 / 8 hrs</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -272,11 +283,31 @@
 
             <div class="progress-item">
                 <div class="progress-header">
-                    <span>Gaming Time</span>
+                    <span>Gaming App Usage</span>
                     <span id="gamingText">0.00 / 3 hrs</span>
                 </div>
                 <div class="progress-bar-bg">
                     <div id="gamingBar" class="progress-bar-fill" style="width: 0%; background: #ef4444;"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Night Time Usage</span>
+                    <span id="nightText">0.00 / 2 hrs</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="nightBar" class="progress-bar-fill" style="width: 0%; background: #8b5cf6;"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>Physical Activity</span>
+                    <span id="physicalText">0.00 / 5 hrs</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="physicalBar" class="progress-bar-fill" style="width: 0%; background: #10b981;"></div>
                 </div>
             </div>
         </div>
@@ -287,129 +318,146 @@
         <div class="ai-banner-icon">🤖</div>
         <div class="ai-banner-text">
             <h5>AI Summary & Insight</h5>
-            <p id="aiSummaryText">Your digital habits show a healthy balance between sleep and screen time. Keep maintaining your bedtime routine!</p>
+            <p id="aiSummaryText">Analyzing your comprehensive digital habits and lifestyle metrics...</p>
         </div>
     </div>
 </div>
 
 <script>
-    window.onload = function() {
-        // 1. LocalStorage ထဲက User Input Data များကို ရယူခြင်း
-        const savedData = localStorage.getItem("usage_analysis_data");
+    window.onload = async function() {
+        try {
+            // Backend API မှ ဒေတာများကို တိုက်ရိုက်ရယူခြင်း
+            const response = await fetch('/api/daily_usage');
+            const result = await response.json();
 
-        // User က Form မဖြည့်ရသေးဘဲ Results စာမျက်နှာကို တိုက်ရိုက်ဝင်လာပါက Warning ပြပြီး Form သို့ ပြန်ပို့မည်
-        if (!savedData) {
-            alert("Assessment Data မရှိသေးပါ! ကျေးဇူးပြု၍ Form အရင်ဖြည့်ပေးပါ။");
-            window.location.href = "/usage_analysis";
-            return;
-        }
-
-        const data = JSON.parse(savedData);
-
-        // 2. User Input Data များအားလုံးကို Parse လုပ်ခြင်း (ပုံသေ တန်ဖိုးများ လုံးဝ မသုံးထားပါ)
-        const screenTime = parseFloat(data.screen_time) || 0;
-        const socialMedia = parseFloat(data.social_media_usage) || 0;
-        const gaming = parseFloat(data.gaming_usage) || 0;
-        const sleepHours = parseFloat(data.sleep_hours) || 0;
-        
-        // Backend (Flask ML Model) မှ ပြန်လာသော Dynamic Score & Level
-        const score = parseFloat(data.wellbeing_score || 0).toFixed(2);
-        const level = data.awareness_level || 'Moderate';
-
-        // 3. Top KPI Cards သို့ User Input များ ထည့်သွင်းခြင်း
-        document.getElementById("kpiScore").innerText = score;
-        document.getElementById("gaugeScoreText").innerText = Math.round(score);
-        document.getElementById("kpiScreen").innerText = screenTime.toFixed(2) + " hrs";
-        document.getElementById("kpiSleep").innerText = sleepHours.toFixed(2) + " hrs";
-
-        const badge = document.getElementById("kpiBadge");
-        badge.innerText = level + " Awareness";
-        badge.className = "status-badge " + level;
-
-        // 4. Progress Bars သို့ User Input အမှန်များ ချိတ်ဆက်ခြင်း
-        // Screen Time Bar
-        const screenBar = document.getElementById("screenBar");
-        document.getElementById("screenText").innerText =` ${screenTime.toFixed(2)} / 8 hrs`;
-        screenBar.style.width = Math.min(100, (screenTime / 8) * 100) + "%";
-        screenBar.style.backgroundColor = "#0284c7";
-
-        // Social Media Bar
-        const socialBar = document.getElementById("socialBar");
-        document.getElementById("socialText").innerText = `${socialMedia.toFixed(2)} / 4 hrs`;
-        socialBar.style.width = Math.min(100, (socialMedia / 4) * 100) + "%";
-        socialBar.style.backgroundColor = "#f59e0b";
-
-        // Gaming Time Bar
-        const gamingBar = document.getElementById("gamingBar");
-        document.getElementById("gamingText").innerText = `${gaming.toFixed(2)} / 3 hrs`;
-        gamingBar.style.width = Math.min(100, (gaming / 3) * 100) + "%";
-        gamingBar.style.backgroundColor = "#ef4444";
-
-        // 5. Dynamic AI Summary Text
-        const summary = document.getElementById("aiSummaryText");
-        if(score >= 75) {
-            summary.innerText = "Excellent healthy digital life! Your usage is well-balanced with sufficient rest time.";
-        } else if(score >= 50) {
-            summary.innerText = "Moderate balance detected. Consider reducing late-night screen time to optimize sleep quality.";
-        } else {
-            summary.innerText = "High screen time detected! It is recommended to take regular breaks and lower gaming/social media duration.";
-        }
-
-        // ==========================================
-        // CHART 1: DONUT SCORE GAUGE (DYNAMIC)
-        // ==========================================
-        new Chart(document.getElementById('scoreGauge').getContext('2d'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Score', 'Remaining'],
-                datasets: [{
-                    data: [score, 100 - score],
-                    backgroundColor: ['#0d9488', '#e2e8f0'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                cutout: '78%',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } }
+            if (!result.success || !result.data) {
+                alert("Assessment Data မရှိသေးပါ! ကျေးဇူးပြု၍ Form အရင်ဖြည့်ပေးပါ။");
+                window.location.href = "/usage_analysis";
+                return;
             }
-        });
-        // ==========================================
-        // CHART 2: RADAR HABITS BALANCE (DYNAMIC FROM USER INPUT)
-        // ==========================================
-        const sleepScore = Math.min(100, (sleepHours / 8) * 100);
-        const screenScore = Math.max(0, 100 - (screenTime * 8));
-        const socialScore = Math.max(0, 100 - (socialMedia * 15));
-        const gamingScore = Math.max(0, 100 - (gaming * 20));
 
-        new Chart(document.getElementById('radarChart').getContext('2d'), {
-            type: 'radar',
-            data: {
-                labels: ['Sleep', 'Screen Control', 'Social Balance', 'Gaming Balance', 'Focus Score'],
-                datasets: [{
-                    data: [sleepScore, screenScore, socialScore, gamingScore, score],
-                    backgroundColor: 'rgba(13, 148, 136, 0.2)',
-                    borderColor: '#0d9488',
-                    pointBackgroundColor: '#0f766e',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: { 
-                    r: { 
-                        suggestedMin: 0, 
-                        suggestedMax: 100,
-                        angleLines: { color: '#ccfbf1' },
-                        grid: { color: '#e2e8f0' },
-                        ticks: { display: false }
-                    } 
+            const data = result.data;
+
+            // Dataset Column များနှင့် ကိုက်ညီစေရန် Parse လုပ်ခြင်း
+            const age = parseInt(data.Age) || 0;
+            const gender = data.Gender || "N/A";
+            const notificationCount = parseInt(data.Notification_Count) || 0;
+            const screenTime = parseFloat(data.Daily_Screen_Time_Hours) || 0;
+            const numberOfApps = parseInt(data.Number_of_Apps_Used) || 0;
+            const socialMedia = parseFloat(data.Social_Media_Usage_Hours) || 0;
+            const gaming = parseFloat(data.Gaming_App_Usage_Hours) || 0;
+            const physicalActivity = parseFloat(data.Physical_Activity_Hours_Week ?? data.Physical_Activity ?? 0);
+            const nightTime = parseFloat(data.Night_Time_Usage_Hours) || 0;
+            const sleepHours = parseFloat(data.Sleep_Hours) || 0;
+            
+            const score = parseFloat(data.Digital_Wellbeing_Score || 0).toFixed(2);
+            const level = data.Awareness_Level || 'Moderate';
+
+            // 1. Top KPI Cards သို့ ဒေတာများ ထည့်သွင်းခြင်း
+            document.getElementById("kpiScore").innerText = score;
+            document.getElementById("gaugeScoreText").innerText = Math.round(score);
+            document.getElementById("kpiScreenSleep").innerText = `${screenTime.toFixed(1)}h / ${sleepHours.toFixed(1)}h`;
+            document.getElementById("kpiNotifApps").innerText = `${notificationCount} / ${numberOfApps}`;
+            document.getElementById("kpiActNight").innerText = `${physicalActivity.toFixed(1)}h / ${nightTime.toFixed(1)}h`;
+            document.getElementById("kpiProfile").innerText = `Age: ${age}`;
+            document.getElementById("kpiGender").innerText = `Gender: ${gender}`;
+
+            const badge = document.getElementById("kpiBadge");
+            badge.innerText = level + " Awareness";
+            badge.className = "status-badge " + level;
+
+            // 2. Progress Bars သို့ Dataset အချက်အလက်များ ချိတ်ဆက်ခြင်း
+            const screenBar = document.getElementById("screenBar");
+            document.getElementById("screenText").innerText = `${screenTime.toFixed(2)} / 8 hrs`;
+            screenBar.style.width = Math.min(100, (screenTime / 8) * 100) + "%";
+
+            const socialBar = document.getElementById("socialBar");
+            document.getElementById("socialText").innerText = `${socialMedia.toFixed(2)} / 4 hrs`;
+            socialBar.style.width = Math.min(100, (socialMedia / 4) * 100) + "%";
+
+            const gamingBar = document.getElementById("gamingBar");
+            document.getElementById("gamingText").innerText = `${gaming.toFixed(2)} / 3 hrs`;
+            gamingBar.style.width = Math.min(100, (gaming / 3) * 100) + "%";
+
+            const nightBar = document.getElementById("nightBar");
+            document.getElementById("nightText").innerText = `${nightTime.toFixed(2)} / 2 hrs`;
+            nightBar.style.width = Math.min(100, (nightTime / 2) * 100) + "%";
+
+            const physicalBar = document.getElementById("physicalBar");
+            document.getElementById("physicalText").innerText = `${physicalActivity.toFixed(2)} / 5 hrs`;
+            physicalBar.style.width = Math.min(100, (physicalActivity / 5) * 100) + "%";
+
+            // 3. Dynamic AI Summary Text
+            const summary = document.getElementById("aiSummaryText");
+            if(score >= 75) {
+                summary.innerText = `Excellent digital wellbeing score (${score})! With ${physicalActivity} hrs of physical activity and solid sleep, your habits are well-balanced.`;
+            } else if(score >= 50) {
+                summary.innerText = `Moderate wellbeing level detected. Consider keeping night-time usage (${nightTime} hrs) lower and notification distractions under control.`;
+            } else {
+                summary.innerText = `Low wellbeing score detected. High screen time (${screenTime} hrs) and night usage are impacting your health. Try reducing app engagement.`;
+            }
+
+            // ==========================================
+            // CHART 1: DONUT SCORE GAUGE
+            // ==========================================
+            new Chart(document.getElementById('scoreGauge').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Score', 'Remaining'],
+                    datasets: [{
+                        data: [score, 100 - score],
+                        backgroundColor: ['#0d9488', '#e2e8f0'],
+                        borderWidth: 0
+                    }]
                 },
-                plugins: { legend: { display: false } }
-            }
-        });
+                options: {
+                    cutout: '78%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // ==========================================
+            // CHART 2: RADAR HABITS BALANCE
+            // ==========================================
+            const sleepScore = Math.min(100, (sleepHours / 8) * 100);
+            const activityScore = Math.min(100, (physicalActivity / 5) * 100);
+            const controlScore = Math.max(0, 100 - (nightTime * 20));
+            const appFocusScore = Math.max(0, 100 - (numberOfApps * 2));
+
+            new Chart(document.getElementById('radarChart').getContext('2d'), {
+                type: 'radar',
+                data: {
+                    labels: ['Sleep Quality', 'Physical Activity', 'Night Control', 'App Control', 'Wellbeing Score'],
+                    datasets: [{
+                        data: [sleepScore, activityScore, controlScore, appFocusScore, parseFloat(score)],
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        borderColor: '#0d9488',
+                        pointBackgroundColor: '#0f766e',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { 
+                        r: { 
+                            suggestedMin: 0, 
+                            suggestedMax: 100,
+                            angleLines: { color: '#ccfbf1' },
+                            grid: { color: '#e2e8f0' },
+                            ticks: { display: false }
+                        } 
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+        } catch (error) {
+            console.error("Error fetching usage data:", error);
+            alert("ဒေတာရယူရာတွင် အမှားအယွင်းရှိနေပါသည်။");
+        }
     };
 </script>
 </body>

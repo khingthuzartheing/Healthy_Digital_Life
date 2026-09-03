@@ -15,17 +15,19 @@ MODEL_FILE = "digital_wellbeing_model.pkcls"
 
 
 # ==========================================
-# FEATURES - 8 INPUT FEATURES
+# FEATURES - UPDATED BASED ON APP & DATASET COLUMNS
 # ==========================================
 
 FEATURES = [
     "Age",
     "Gender",
-    "Total_App_Usage_Hours",
+    "Notification_Count",
     "Daily_Screen_Time_Hours",
     "Number_of_Apps_Used",
     "Social_Media_Usage_Hours",
     "Gaming_App_Usage_Hours",
+    "Physical_Activity_Hours_Week",  # app1.txt နဲ့ ကိုက်ညီအောင် Space အစား Underscore သုံးထားသည်
+    "Night_Time_Usage_Hours",
     "Sleep_Hours"
 ]
 
@@ -138,11 +140,13 @@ if X["Gender"].isnull().any():
 
 numeric_columns = [
     "Age",
-    "Total_App_Usage_Hours",
+    "Notification_Count",
     "Daily_Screen_Time_Hours",
     "Number_of_Apps_Used",
     "Social_Media_Usage_Hours",
     "Gaming_App_Usage_Hours",
+    "Physical_Activity_Hours_Week",  # app1.txt နဲ့ ကိုက်ညီအောင် ပြင်ထားသည်
+    "Night_Time_Usage_Hours",
     "Sleep_Hours"
 ]
 
@@ -197,7 +201,6 @@ print(
     "->",
     TARGET
 )
-
 
 # ==========================================
 # 8. SHOW GENDER VALUES

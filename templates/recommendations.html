@@ -23,7 +23,6 @@
             padding: 40px 8%;
         }
 
-        /* Container */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -34,45 +33,13 @@
             border: 2px solid #99f6e4;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 25px;
         }
 
-        .header h1 {
-            font-size: 26px;
-            color: #115e59;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header p {
-            font-size: 14px;
-            color: #4b6f6c;
-            margin-top: 5px;
-        }
-
-        .back-btn {
-            text-decoration: none;
-            color: #0f766e;
-            font-weight: 700;
-            font-size: 14px;
-            background: #f0fdfa;
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: 1px solid #99f6e4;
-            transition: 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #ccfbf1;
-        }
-
-        /* Banner */
         .status-banner {
             background: #115e59;
             color: white;
@@ -108,7 +75,34 @@
             line-height: 1.5;
         }
 
-        /* Recommendations Grid */
+        /* Stats Overview Box */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .stat-card h4 {
+            font-size: 18px;
+            color: #0f766e;
+        }
+
         .section-subtitle {
             font-size: 20px;
             color: #115e59;
@@ -159,6 +153,7 @@
             font-size: 17px;
             color: #0f766e;
         }
+
         .rec-card p {
             font-size: 14px;
             color: #4b6f6c;
@@ -176,9 +171,8 @@
             font-weight: 700;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .recommendations-grid {
+            .recommendations-grid, .stats-overview {
                 grid-template-columns: 1fr;
             }
 
@@ -196,68 +190,116 @@
     <div class="container">
 
         <!-- HEADER -->
-        <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;"><!-- ဘယ်ဘက် - ခေါင်းစဉ်နှင့် စာသား --><div style="text-align: left;"><h1 style="margin: 0; font-size: 24px; color: #0f766e;">💡 Personalized Action Plan</h1><p style="margin-top: 6px; color: #64748b; font-size: 14px;">Smart recommendations tailored to your digital habits</p></div><!-- ညာဘက် - Back to Features Button --><div><a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4; white-space: nowrap;">
-            ← Features
-        </a></div></div>
+        <div class="header">
+            <div>
+                <h1 style="margin: 0; font-size: 24px; color: #0f766e;">💡 Personalized Action Plan</h1>
+                <p style="margin-top: 6px; color: #64748b; font-size: 14px;">Smart recommendations based on your digital habits (User ID: <span id="user-id">1</span>)</p>
+            </div>
+            <div>
+                <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4; white-space: nowrap;">
+                    ⬅️ Features
+                </a>
+            </div>
+        </div>
 
         <!-- STATUS BANNER -->
         <div class="status-banner">
             <div class="status-icon">🎯</div>
             <div class="status-text">
-                <h3>Analysis Completed</h3>
-                <p>We evaluated your usage patterns. Here are the most effective habits recommended for your focus and healthy digital life.</p>
+                <h3>Analysis Completed (Awareness: <span id="awareness-level">Medium</span>)</h3>
+                <p>Digital Wellbeing Score: <strong id="wellbeing-score">50.37</strong>/100. Here are the customized habits recommended for your profile.</p>
+            </div>
+        </div>
+
+        <!-- DATASET METRICS OVERVIEW -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <span>Daily Screen Time</span>
+                <h4 id="screen-time">0 hrs</h4>
+            </div>
+            <div class="stat-card">
+                <span>Social Media Usage</span>
+                <h4 id="social-usage">0 hrs</h4>
+            </div>
+            <div class="stat-card">
+                <span>Night-Time Usage</span>
+                <h4 id="night-usage">0 hrs</h4>
+            </div>
+            <div class="stat-card">
+                <span>Sleep Hours</span>
+                <h4 id="sleep-hours">0 hrs</h4>
             </div>
         </div>
 
         <!-- RECOMMENDATIONS SECTION -->
         <div class="section-subtitle">Recommended Actions</div>
 
-        <div class="recommendations-grid">
-
-            <!-- CARD 1 -->
+        <div class="recommendations-grid" id="recommendations-container">
+            <!-- Dynamic or Default Recommendations -->
             <div class="rec-card">
                 <div class="rec-header">
                     <div class="rec-icon">⏳</div>
-                    <h4>Limit Social Media Time</h4>
+                    <h4>Optimize Social Media</h4>
                 </div>
-                <p>Set a daily limit of 1 hour for social media apps to reduce digital fatigue and avoid mindless scrolling.</p>
+                <p>Your social media usage is <span id="card-social">0</span> hours. Try reducing mindless scrolling to boost productivity.</p>
                 <span class="action-tag">High Priority</span>
             </div>
 
-            <!-- CARD 2 -->
             <div class="rec-card">
                 <div class="rec-header">
                     <div class="rec-icon">🌙</div>
                     <h4>Nighttime Screen Detox</h4>
                 </div>
-                <p>Turn off screens 30 to 60 minutes before bedtime to improve your sleep quality and melatonin production.</p>
+                <p>Manage your <span id="card-night">0</span> hours of night-time device usage to improve sleep quality from your current <span id="card-sleep">0</span> hours sleep.</p>
                 <span class="action-tag">Sleep Hygiene</span>
             </div>
 
-            <!-- CARD 3 -->
             <div class="rec-card">
                 <div class="rec-header">
                     <div class="rec-icon">🔕</div>
-                    <h4>Manage Notifications</h4>
+                    <h4>Notification Control</h4>
                 </div>
-                <p>Disable non-essential app notifications to maintain concentration during work or study hours.</p>
+                <p>You have <span id="card-notifications">0</span> notifications recorded. Lower interruptions to maintain focus.</p>
                 <span class="action-tag">Focus Booster</span>
             </div>
 
-            <!-- CARD 4 -->
             <div class="rec-card">
                 <div class="rec-header">
-                    <div class="rec-icon">🧘‍♂️</div>
-                    <h4>Take Regular Breaks</h4>
+                    <div class="rec-icon">🏃‍♂️</div>
+                    <h4>Physical Activity Balance</h4>
                 </div>
-                <p>Follow the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds to reduce eye strain.</p>
+                <p>Balance your <span id="card-screen">0</span> hours total screen time with regular physical movement and outdoor breaks.</p>
                 <span class="action-tag">Health Habit</span>
             </div>
-
         </div>
 
     </div>
 
+    <script>
+        // Fetch Daily Usage data from app1_2.txt endpoint to match exact column keys
+        fetch('/api/daily_usage')
+            .then(response => response.json())
+            .then(res => {
+                if (res.success && res.data) {
+                    const d = res.data;
+                    document.getElementById('user-id').innerText = d.User_ID || '1';
+                    document.getElementById('awareness-level').innerText = d.Awareness_Level || 'Medium';
+                    document.getElementById('wellbeing-score').innerText = Number(d.Digital_Wellbeing_Score || 50).toFixed(2);
+                    
+                    document.getElementById('screen-time').innerText = (d.Daily_Screen_Time_Hours || 0) + ' hrs';
+                    document.getElementById('social-usage').innerText = (d.Social_Media_Usage_Hours || 0) + ' hrs';
+                    document.getElementById('night-usage').innerText = (d.Night_Time_Usage_Hours || 0) + ' hrs';
+                    document.getElementById('sleep-hours').innerText = (d.Sleep_Hours || 0) + ' hrs';
+
+                    document.getElementById('card-social').innerText = d.Social_Media_Usage_Hours || 0;
+                    document.getElementById('card-night').innerText = d.Night_Time_Usage_Hours || 0;
+                    document.getElementById('card-sleep').innerText = d.Sleep_Hours || 0;
+                    document.getElementById('card-notifications').innerText = d.Notification_Count || 0;
+                    document.getElementById('card-screen').innerText = d.Daily_Screen_Time_Hours || 0;
+                }
+            })
+            .catch(err => console.error("Error loading usage data:", err));
+    </script>
 </body>
 
 </html>

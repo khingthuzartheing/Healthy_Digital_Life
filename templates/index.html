@@ -500,299 +500,120 @@
                 <!-- AGE -->
 
                 <div class="input-group">
-
-                    <label>
-                        Age
-                    </label>
-
-                    <input
-                        type="number"
-                        id="age"
-                        min="1"
-                        max="100"
-                        placeholder="Enter age"
-                        required
-                    >
-
+                    <label>Age</label>
+                    <input type="number" id="age" min="1" max="100" placeholder="Enter age" required>
                 </div>
-
 
                 <!-- GENDER -->
 
                 <div class="input-group">
-
-                    <label>
-                        Gender
-                    </label>
-
+                    <label>Gender</label>
                     <select id="gender" required>
-
-                        <option value="">
-                            Select Gender
-                        </option>
-
-                        <option value="Male">
-                            Male
-                        </option>
-
-                        <option value="Female">
-                            Female
-                        </option>
-
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
-
                 </div>
 
-
-                <!-- TOTAL APP USAGE -->
+                <!-- NOTIFICATION COUNT -->
 
                 <div class="input-group">
-
-                    <label>
-                        Total App Usage
-                    </label>
-
-                    <div class="time-inputs">
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="totalAppHours"
-                                min="0"
-                                max="24"
-                                value=" "
-                            >
-
-                            <span>
-                                Hours
-                            </span>
-
-                        </div>
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="totalAppMins"
-                                min="0"
-                                max="59"
-                                value=" "
-                            >
-
-                            <span>
-                                Minutes
-                            </span>
-
-                        </div>
-
-                    </div>
-
+                    <label>Notification Count</label>
+                    <input type="number" id="notificationCount" min="0" placeholder="Enter notification count" required>
                 </div>
 
-
-                <!-- SCREEN TIME -->
-
-                <div class="input-group">
-
-                    <label>
-                        Daily Screen Time
-                    </label>
-
-                    <div class="time-inputs">
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="screenTimeHours"
-                                min="0"
-                                max="24"
-                                value=" "
-                            >
-
-                            <span>
-                                Hours
-                            </span>
-
-                        </div>
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="screenTimeMins"
-                                min="0"
-                                max="59"
-                                value=" "
-                            >
-
-                            <span>
-                                Minutes
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SOCIAL MEDIA -->
+                <!-- DAILY SCREEN TIME -->
 
                 <div class="input-group">
-
-                    <label>
-                        Social Media Usage
-                    </label>
-
+                    <label>Daily Screen Time (Hours)</label>
                     <div class="time-inputs">
-
                         <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="socialMediaHours"
-                                min="0"
-                                max="24"
-                                value=" "
-                            >
-
-                            <span>
-                                Hours
-                            </span>
-
+                            <input type="number" id="screenTimeHours" min="0" max="24" value=" ">
+                            <span>Hours</span>
                         </div>
-
                         <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="socialMediaMins"
-                                min="0"
-                                max="59"
-                                value=" "
-                            >
-
-                            <span>
-                                Minutes
-                            </span>
-
+                            <input type="number" id="screenTimeMins" min="0" max="59" value=" ">
+                            <span>Minutes</span>
                         </div>
-
                     </div>
-
-                </div>
-
-                
-                <!-- GAMING -->
-
-                <div class="input-group">
-
-                    <label>
-                        Gaming App Usage
-                    </label>
-
-                    <div class="time-inputs">
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="gamingHours"
-                                min="0"
-                                max="24"
-                                value=" "
-                            >
-
-                            <span>
-                                Hours
-                            </span>
-
-                        </div>
-
-                        <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="gamingMins"
-                                min="0"
-                                max="59"
-                                value=" "
-                            >
-
-                            <span>
-                                Minutes
-                            </span>
-
-                        </div>
-
-                    </div>
-
                 </div>
 
                 <!-- NUMBER OF APPS -->
 
                 <div class="input-group">
-
-                    <label>
-                        Number of Apps Used
-                    </label>
-
-                    <input
-                        type="number"
-                        id="appsCount"
-                        min="0"
-                        placeholder=" "
-                        required
-                    >
-
+                    <label>Number of Apps Used</label>
+                    <input type="number" id="appsCount" min="0" placeholder=" " required>
                 </div>
 
-                <!-- SLEEP -->
+                <!-- SOCIAL MEDIA USAGE -->
 
                 <div class="input-group">
-
-                    <label>
-                        Sleep Hours
-                    </label>
-
+                    <label>Social Media Usage (Hours)</label>
                     <div class="time-inputs">
-
                         <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="sleepHours"
-                                min="0"
-                                max="24"
-                                value=" "
-                            >
-
-                            <span>
-                                Hours
-                            </span>
-
+                            <input type="number" id="socialMediaHours" min="0" max="24" value=" ">
+                            <span>Hours</span>
                         </div>
-
                         <div class="time-field">
-
-                            <input
-                                type="number"
-                                id="sleepMins"
-                                min="0"
-                                max="59"
-                                value=" "
-                            >
-
-                            <span>
-                                Minutes
-                            </span>
-
+                            <input type="number" id="socialMediaMins" min="0" max="59" value=" ">
+                            <span>Minutes</span>
                         </div>
-
                     </div>
+                </div>
+                
+                <!-- GAMING APP USAGE -->
 
+                <div class="input-group">
+                    <label>Gaming App Usage (Hours)</label>
+                    <div class="time-inputs">
+                        <div class="time-field">
+                            <input type="number" id="gamingHours" min="0" max="24" value=" ">
+                            <span>Hours</span>
+                        </div>
+                        <div class="time-field">
+                            <input type="number" id="gamingMins" min="0" max="59" value=" ">
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHYSICAL ACTIVITY -->
+
+                <div class="input-group">
+                    <label>Physical Activity (hours/week)</label>
+                    <input type="number" step="0.1" id="physicalActivity" min="0" placeholder="e.g., 2.5" required>
+                </div>
+
+                <!-- NIGHT TIME USAGE -->
+
+                <div class="input-group">
+                    <label>Night Time Usage (Hours)</label>
+                    <div class="time-inputs">
+                        <div class="time-field">
+                            <input type="number" step="0.1" id="nightTimeHours" min="0" max="24" value=" ">
+                            <span>Hours</span>
+                        </div>
+                        <div class="time-field">
+                            <input type="number" step="0.1" id="nightTimeMins" min="0" max="59" value=" ">
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLEEP HOURS -->
+
+                <div class="input-group">
+                    <label>Sleep Hours</label>
+                    <div class="time-inputs">
+                        <div class="time-field">
+                            <input type="number" id="sleepHours" min="0" max="24" value=" ">
+                            <span>Hours</span>
+                        </div>
+                        <div class="time-field">
+                            <input type="number" id="sleepMins" min="0" max="59" value=" ">
+                            <span>Minutes</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -1048,36 +869,22 @@
 
         async function calculateWellbeing() {
 
-            const ageElement =
-                document.getElementById("age");
+            const ageElement = document.getElementById("age");
+            const genderElement = document.getElementById("gender");
+            const notificationCountElement = document.getElementById("notificationCount");
+            const appsElement = document.getElementById("appsCount");
+            const physicalActivityElement = document.getElementById("physicalActivity");
 
-            const genderElement =
-                document.getElementById("gender");
-
-            const appsElement =
-                document.getElementById("appsCount");
-
-            if (!ageElement ||
-                !genderElement ||
-                !appsElement) {
-
-                alert(
-                    "❌ Form elements are missing."
-                );
-
+            if (!ageElement || !genderElement || !notificationCountElement || !appsElement || !physicalActivityElement) {
+                alert("❌ Form elements are missing.");
                 return;
-
             }
 
-
-            const age =
-                parseFloat(ageElement.value);
-
-            const gender =
-                genderElement.value;
-
-            const appsCount =
-                parseInt(appsElement.value, 10);
+            const age = parseFloat(ageElement.value);
+            const gender = genderElement.value;
+            const notificationCount = parseInt(notificationCountElement.value, 10);
+            const appsCount = parseInt(appsElement.value, 10);
+            const physicalActivity = parseFloat(physicalActivityElement.value);
 
 
             /* =====================================
@@ -1085,36 +892,28 @@
             ===================================== */
 
             if (!Number.isFinite(age) || age <= 0) {
-
-                alert(
-                    "⚠️ Please enter a valid age."
-                );
-
+                alert("⚠️ Please enter a valid age.");
                 return;
-
             }
-
 
             if (!gender) {
-
-                alert(
-                    "⚠️ Please select your gender."
-                );
-
+                alert("⚠️ Please select your gender.");
                 return;
-
             }
 
-
-            if (!Number.isInteger(appsCount) ||
-                appsCount < 0) {
-
-                alert(
-                    "⚠️ Please enter a valid number of apps."
-                );
-
+            if (!Number.isInteger(notificationCount) || notificationCount < 0) {
+                alert("⚠️ Please enter a valid notification count.");
                 return;
+            }
 
+            if (!Number.isInteger(appsCount) || appsCount < 0) {
+                alert("⚠️ Please enter a valid number of apps.");
+                return;
+            }
+
+            if (!Number.isFinite(physicalActivity) || physicalActivity < 0) {
+                alert("⚠️ Please enter valid physical activity hours.");
+                return;
             }
 
 
@@ -1122,178 +921,51 @@
                GET TIME VALUES
             ===================================== */
 
-            const totalApp =
-                getTotalHours(
-                    "totalAppHours",
-                    "totalAppMins"
-                );
-
-            const screenTime =
-                getTotalHours(
-                    "screenTimeHours",
-                    "screenTimeMins"
-                );
-
-            const socialMedia =
-                getTotalHours(
-                    "socialMediaHours",
-                    "socialMediaMins"
-                );
-
-            const gaming =
-                getTotalHours(
-                    "gamingHours",
-                    "gamingMins"
-                );
-
-            const sleepHours =
-                getTotalHours(
-                    "sleepHours",
-                    "sleepMins"
-                );
-
-
-            /* =====================================
-               RANGE VALIDATION
-            ===================================== */
-
-            const timeValues = [
-                totalApp,
-                screenTime,
-                socialMedia,
-                gaming,
-                sleepHours
-            ];
-
-
-            if (
-                timeValues.some(
-                    value =>
-                        !Number.isFinite(value) ||
-                        value < 0 ||
-                        value > 24
-                )
-            ) {
-
-                alert(
-                    "⚠️ Time values must be between 0 and 24 hours."
-                );
-
-                return;
-
-            }
-
-
-            /* =====================================
-               LOGICAL VALIDATION
-            ===================================== */
-
-            if (
-                socialMedia + gaming >
-                screenTime + 0.000001
-            ) {
-
-                alert(
-                    "⚠️ Social Media + Gaming cannot exceed Daily Screen Time."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                totalApp >
-                screenTime + 0.000001
-            ) {
-
-                alert(
-                    "⚠️ Total App Usage cannot exceed Daily Screen Time."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                socialMedia + gaming >
-                totalApp + 0.000001
-            ) {
-
-                alert(
-                    "⚠️ Social Media + Gaming cannot exceed Total App Usage."
-                );
-
-                return;
-
-            }
+            const screenTime = getTotalHours("screenTimeHours", "screenTimeMins");
+            const socialMedia = getTotalHours("socialMediaHours", "socialMediaMins");
+            const gaming = getTotalHours("gamingHours", "gamingMins");
+            const nightTime = getTotalHours("nightTimeHours", "nightTimeMins");
+            const sleepHours = getTotalHours("sleepHours", "sleepMins");
 
 
             /* =====================================
                GENDER ENCODING
-               
                Male   = 0
                Female = 1
             ===================================== */
 
-            const genderValue =
-                gender === "Female" ? 1 : 0;
+            const genderValue = gender === "Female" ? 1 : 0;
 
 
             /* =====================================
-               PAYLOAD
+               PAYLOAD (Dataset Column Names အတိုင်း)
             ===================================== */
 
             const payload = {
-
-                age: age,
-
-                gender: genderValue,
-
-                total_app_usage:
-                    Number(totalApp.toFixed(2)),
-
-                daily_screen_time:
-                    Number(screenTime.toFixed(2)),
-
-                number_of_apps:
-                    appsCount,
-
-                social_media_hours:
-                    Number(socialMedia.toFixed(2)),
-
-                gaming_hours:
-                    Number(gaming.toFixed(2)),
-
-                sleep_hours:
-                    Number(sleepHours.toFixed(2))
-
+                Age: age,
+                Gender: genderValue,
+                Notification_Count: notificationCount,
+                Daily_Screen_Time_Hours: Number(screenTime.toFixed(2)),
+                Number_of_Apps_Used: appsCount,
+                Social_Media_Usage_Hours: Number(socialMedia.toFixed(2)),
+                Gaming_App_Usage_Hours: Number(gaming.toFixed(2)),
+                Physical_Activity_Hours_Week: Number(physicalActivity.toFixed(2)), //[cite: 2, 3] တွင်သုံးသော key အမည်သို့ ပြောင်းလိုက်သည်
+                Night_Time_Usage_Hours: Number(nightTime.toFixed(2)),
+                Sleep_Hours: Number(sleepHours.toFixed(2))
             };
-
-
-            console.log(
-                "📤 Sending prediction data:",
-                payload
-            );
+                
+            console.log("📤 Sending prediction data:", payload);
 
 
             /* =====================================
                BUTTON
             ===================================== */
 
-            const calculateButton =
-                document.getElementById(
-                    "calculateButton"
-                );
+            const calculateButton = document.getElementById("calculateButton");
 
             if (calculateButton) {
-
                 calculateButton.disabled = true;
-
-                calculateButton.textContent =
-                    "Calculating...";
-
+                calculateButton.textContent = "Calculating...";
             }
 
 
@@ -1303,226 +975,51 @@
 
             try {
 
-                const response =
-                    await fetch(
-                        "/predict",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(payload)
-                        }
-                    );
-
-
-                console.log(
-                    "📥 Server response:",
-                    response.status
-                );
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
 
 
                 let result;
-
                 try {
-
-                    result =
-                        await response.json();
-
+                    result = await response.json();
                 } catch (jsonError) {
-
-                    throw new Error(
-                        "Server returned an invalid response."
-                    );
-
+                    throw new Error("Server returned an invalid response.");
                 }
 
-
-                console.log(
-                    "📊 Prediction result:",
-                    result
-                );
-
-
-                if (
-                    !response.ok ||
-                    result.status !== "success"
-                ) {
-
-                    throw new Error(
-                        result.message ||
-                        "Unable to calculate score."
-                    );
-
+                if (!response.ok || result.status !== "success") {
+                    throw new Error(result.message || "Unable to calculate score.");
                 }
 
-
-                /* =====================================
-                   SCORE
-                   
-                   Score comes from Flask calculation.
-                ===================================== */
-
-                const score =
-                    Number(result.score);
-
-
-                if (!Number.isFinite(score)) {
-
-                    throw new Error(
-                        "Invalid wellbeing score received from server."
-                    );
-
-                }
-
-
-                /* =====================================
-                   AWARENESS LEVEL
-                   
-                   IMPORTANT:
-                   This comes directly from
-                   Random Forest model.
-                ===================================== */
-
-                const awarenessLevel =
-                    String(
-                        result.awareness_level ||
-                        result.prediction ||
-                        "Unknown"
-                    );
-
-
-                /* =====================================
-                   CONFIDENCE
-                ===================================== */
-
-                const confidence =
-                    Number(
-                        result.confidence || 0
-                    );
-
-
-                /* =====================================
-                   SAVE DATA
-                ===================================== */
-
-                const usageAnalysisData = {
-
-                    user_id:
-                        localStorage.getItem(
-                            "current_user_id"
-                        ) || "1",
-
-                    age: age,
-
-                    gender: gender,
-
-                    total_app_usage:
-                        Number(totalApp.toFixed(2)),
-
-                    screen_time:
-                        Number(screenTime.toFixed(2)),
-
-                    number_of_apps:
-                        appsCount,
-
-                    social_media_usage:
-                        Number(
-                            socialMedia.toFixed(2)
-                        ),
-
-                    gaming_usage:
-                        Number(
-                            gaming.toFixed(2)
-                        ),
-
-                    sleep_hours:
-                        Number(
-                            sleepHours.toFixed(2)
-                        ),
-
-                    wellbeing_score:
-                        Number(score.toFixed(2)),
-
-                    awareness_level:
-                        awarenessLevel
-
-                };
-
-
-                localStorage.setItem(
-                    "usage_analysis_data",
-                    JSON.stringify(
-                        usageAnalysisData
-                    )
-                );
+                const score = Number(result.wellbeing_score);
+                const awarenessLevel = String(result.awareness_level || result.prediction || "Unknown");
+                const confidence = Number(result.confidence || 0);
 
 
                 /* =====================================
                    SHOW RESULT
                 ===================================== */
 
-                const modal =
-                    document.getElementById(
-                        "resultModal"
-                    );
+                const modal = document.getElementById("resultModal");
+                const scoreValue = document.getElementById("scoreValue");
+                const badge = document.getElementById("awarenessBadge");
+                const recBox = document.getElementById("recommendationBox");
+                const confidenceValue = document.getElementById("confidenceValue");
 
-                const scoreValue =
-                    document.getElementById(
-                        "scoreValue"
-                    );
-
-                const badge =
-                    document.getElementById(
-                        "awarenessBadge"
-                    );
-
-                const recBox =
-                    document.getElementById(
-                        "recommendationBox"
-                    );
-
-                const confidenceValue =
-                    document.getElementById(
-                        "confidenceValue"
-                    );
-
-
-                if (!modal ||
-                    !scoreValue ||
-                    !badge ||
-                    !recBox) {
-
-                    throw new Error(
-                        "Result elements are missing from HTML."
-                    );
-
+                if (!modal || !scoreValue || !badge || !recBox) {
+                    throw new Error("Result elements are missing from HTML.");
                 }
 
-
-                scoreValue.textContent =
-                    score.toFixed(2);
-
-
-                badge.textContent =
-                    awarenessLevel;
-
-
-                badge.className =
-                    "badge " +
-                    awarenessLevel;
-
+                scoreValue.textContent = score.toFixed(2);
+                badge.textContent = awarenessLevel;
+                badge.className = "badge " + awarenessLevel;
 
                 if (confidenceValue) {
-
-                    confidenceValue.textContent =
-                        (confidence * 100).toFixed(2) +
-                        "%";
-
+                    confidenceValue.textContent = (confidence * 100).toFixed(2) + "%";
                 }
 
 
@@ -1532,75 +1029,31 @@
 
                 recBox.innerHTML = "";
 
+                const levelItem = document.createElement("li");
+                levelItem.textContent = "Your Random Forest predicted awareness level is " + awarenessLevel + ".";
+                recBox.appendChild(levelItem);
 
-                const levelItem =
-                    document.createElement("li");
-
-                levelItem.textContent =
-                    "Your Random Forest predicted awareness level is " +
-                    awarenessLevel +
-                    ".";
-
-                recBox.appendChild(
-                    levelItem
-                );
-
-
-                if (
-                    Array.isArray(
-                        result.recommendations
-                    )
-                ) {
-
-                    result.recommendations
-                        .forEach(function (rec) {
-
-                            const li =
-                                document.createElement(
-                                    "li"
-                                );
-
-                            li.textContent = rec;
-
-                            recBox.appendChild(li);
-
-                        });
-
+                if (Array.isArray(result.recommendations)) {
+                    result.recommendations.forEach(function (rec) {
+                        const li = document.createElement("li");
+                        li.textContent = rec;
+                        recBox.appendChild(li);
+                    });
                 }
 
-
-                /* =====================================
-                   OPEN MODAL
-                ===================================== */
-
-                modal.style.display =
-                    "flex";
-
-                document.body.style.overflow =
-                    "hidden";
-
+                modal.style.display = "flex";
+                document.body.style.overflow = "hidden";
 
             } catch (error) {
 
-                console.error(
-                    "❌ Calculate Score Error:",
-                    error
-                );
-
-                alert(
-                    "❌ " + error.message
-                );
+                console.error("❌ Calculate Score Error:", error);
+                alert("❌ " + error.message);
 
             } finally {
 
                 if (calculateButton) {
-
-                    calculateButton.disabled =
-                        false;
-
-                    calculateButton.textContent =
-                        "Calculate Score";
-
+                    calculateButton.disabled = false;
+                    calculateButton.textContent = "Calculate Score";
                 }
 
             }
@@ -1613,35 +1066,15 @@
         ========================================== */
 
         function closeModal() {
-
-            const modal =
-                document.getElementById(
-                    "resultModal"
-                );
-
+            const modal = document.getElementById("resultModal");
             if (modal) {
-
-                modal.style.display =
-                    "none";
-
+                modal.style.display = "none";
             }
-
-            document.body.style.overflow =
-                "";
-
+            document.body.style.overflow = "";
         }
 
 
-        /* =========================================
-           CLOSE BUTTON
-        ========================================== */
-
-        document
-            .getElementById("closeModalButton")
-            .addEventListener(
-                "click",
-                closeModal
-            );
+        document.getElementById("closeModalButton").addEventListener("click", closeModal);
 
 
         /* =========================================
@@ -1649,61 +1082,21 @@
         ========================================== */
 
         function clearForm() {
-
-            const form =
-                document.getElementById(
-                    "wellbeingForm"
-                );
-
+            const form = document.getElementById("wellbeingForm");
             if (form) {
-
                 form.reset();
-
             }
-
-
             closeModal();
-
-            console.log(
-                "🧹 Form cleared."
-            );
-
         }
 
-
-        /* =========================================
-           CLEAR BUTTON
-        ========================================== */
-
-        document
-            .getElementById("clearButton")
-            .addEventListener(
-                "click",
-                clearForm
-            );
+        document.getElementById("clearButton").addEventListener("click", clearForm);
 
 
-        /* =========================================
-           CLICK OUTSIDE MODAL
-        ========================================== */
-
-        document
-            .getElementById("resultModal")
-            .addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        event.target ===
-                        this
-                    ) {
-
-                        closeModal();
-
-                    }
-
-                }
-            );
+        document.getElementById("resultModal").addEventListener("click", function (event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
 
     </script>
 

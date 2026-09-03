@@ -659,7 +659,7 @@
                 </p>
 
                 <div class="score">
-                    <div class="score-title" id="scoreTitle">Example Healthy Digital Life Score</div>
+                    <div class="score-title" id="scoreTitle">Example Digital Wellbeing Score</div>
                     <div class="score-value">78 / 100</div>
                 </div>
             </div>
@@ -727,25 +727,25 @@
     </section>
 
     <!-- =========================
-         GOAL SECTION
+         GOAL SECTION (Updated to match Dataset Columns)
     ========================= -->
 
     <section class="goal-section page-section" id="goal-section">
         <div class="goal-container">
-            <h3 id="goalFormTitle">Set Your Healthy Digital Life Goal</h3>
+            <h3 id="goalFormTitle">Set Your Digital Metric Goal</h3>
 
             <form onsubmit="saveGoal(event)" class="goal-form">
                 <select name="description" required id="goalDescInput">
-                    <option value="" disabled selected id="goalDescDefaultOption">Select Goal Description</option>
-                    <option value="Reduce Social Media Usage" id="optGoal1">Reduce Social Media Usage</option>
-                    <option value="Limit Daily Screen Time" id="optGoal2">Limit Daily Screen Time</option>
-                    <option value="Reduce Late-Night Phone Use" id="optGoal3">Reduce Late-Night Phone Use</option>
-                    <option value="Limit Gaming Time" id="optGoal4">Limit Gaming Time</option>
-                    <option value="Increase Study/Work Focus" id="optGoal5">Increase Study/Work Focus</option>
-                    <option value="Take Regular Screen Breaks" id="optGoal6">Take Regular Screen Breaks</option>
+                    <option value="" disabled selected id="goalDescDefaultOption">Select Metric Goal</option>
+                    <option value="Daily_Screen_Time_Hours" id="optGoal1">Daily Screen Time Hours</option>
+                    <option value="Social_Media_Usage_Hours" id="optGoal2">Social Media Usage Hours</option>
+                    <option value="Gaming_App_Usage_Hours" id="optGoal3">Gaming App Usage Hours</option>
+                    <option value="Night_Time_Usage_Hours" id="optGoal4">Night Time Usage Hours</option>
+                    <option value="Physical_Activity_Hours_Week" id="optGoal5">Physical Activity (hours/week)</option>
+                    <option value="Sleep_Hours" id="optGoal6">Sleep Hours</option>
                 </select>
                 
-                <input type="number" name="target_hours" placeholder="Target Hours" required id="goalTargetInput">
+                <input type="number" step="0.1" name="target_hours" placeholder="Target Value" required id="goalTargetInput">
 
                 <button type="submit" id="goalSubmitBtn">Save Goal</button>
             </form>
@@ -780,8 +780,8 @@
             <!-- 3. WELLBEING RESULTS -->
             <div class="feature-card" onclick="location.href='/wellbeing_results'">
                 <div class="feature-icon">📊</div>
-                <h3 id="feat3Title">Healthy Digital Life Results</h3>
-                <p id="feat3Desc">View your Healthy Digital Life score, level and overall status.</p>
+                <h3 id="feat3Title">Digital Wellbeing Results</h3>
+                <p id="feat3Desc">View your Digital Wellbeing score, level and overall status.</p>
             </div>
 
             <!-- 4. RECOMMENDATIONS -->
@@ -873,13 +873,13 @@
                 heroLearnBtn: "Learn More",
                 cardTitle: "Healthy Digital Life Assessment",
                 cardDesc: "Your digital usage patterns are analyzed using a machine learning model to assess your digital awareness level.",
-                scoreTitle: "Example Healthy Digital Life Score",
+                scoreTitle: "Example Digital Wellbeing Score",
                 dashboardHeading: "Your Dashboard",
                 dashboardSubheading: "Track your current screen time and goal progress.",
                 noGoalText: "There are currently no goals set.",
                 setGoalBtnDashboard: "Set a Goal",
                 dashTargetLabel: "Target:",
-                dashHoursUnit: "Hours",
+                dashHoursUnit: "Units",
                 dashCurrentLabel: "Current:",
                 dashHrsText: "hrs",
                 dashMinsText: "mins",
@@ -887,43 +887,43 @@
                 warningMsg: "⚠️ Alert - You have exceeded your target goal.",
                 recHeading: "💡 Recommendations:",
                 recGoals: {
-                    "Reduce Social Media Usage": [
-                        "Set an App Timer for social media applications.",
-                        "Turn off all notifications and access them only at designated times.",
-                        "Leave your phone elsewhere temporarily and spend time away from social media."
-                    ],
-                    "Limit Daily Screen Time": [
+                    "Daily_Screen_Time_Hours": [
                         "Take regular screen breaks to rest your eyes and mind.",
                         "Turn off unnecessary application notifications.",
                         "Replace the remaining time today with outdoor activities or reading."
                     ],
-                    "Reduce Late-Night Phone Use": [
+                    "Social_Media_Usage_Hours": [
+                        "Set an App Timer for social media applications.",
+                        "Turn off all notifications and access them only at designated times.",
+                        "Leave your phone elsewhere temporarily and spend time away from social media."
+                    ],
+                    "Gaming_App_Usage_Hours": [
+                        "Set a strict schedule to limit gaming hours.",
+                        "Replace gaming with physical activity or other engaging hobbies."
+                    ],
+                    "Night_Time_Usage_Hours": [
                         "Stop using your phone starting 30 minutes before bedtime.",
                         "Keep your phone away from your bed during nighttime sleep.",
                         "Always use Night Shift or a Blue Light Filter."
                     ],
-                    "Limit Gaming Time": [
-                        "Set a strict schedule to limit gaming hours.",
-                        "Replace gaming with physical activity or other engaging hobbies."
+                    "Physical_Activity_Hours_Week": [
+                        "Increase weekly physical activities like walking or exercising.",
+                        "Take short stretch breaks during long working hours."
                     ],
-                    "Increase Study/Work Focus": [
-                        "Use the Pomodoro technique to study or work efficiently.",
-                        "Enable Do Not Disturb mode to block distracting applications."
-                    ],
-                    "Take Regular Screen Breaks": [
-                        "Look away from the phone screen every 30 to 60 minutes to rest your eyes.",
-                        "Stand up, stretch, or drink some water during breaks."
+                    "Sleep_Hours": [
+                        "Maintain a consistent sleep schedule to ensure enough sleep hours.",
+                        "Avoid looking at screens right before sleeping."
                     ]
                 },
-                goalFormTitle: "Set Your Healthy Digital Life Goal",
-                goalDescInput: "Select Goal Description",
-                optGoal1: "Reduce Social Media Usage",
-                optGoal2: "Limit Daily Screen Time",
-                optGoal3: "Reduce Late-Night Phone Use",
-                optGoal4: "Limit Gaming Time",
-                optGoal5: "Increase Study/Work Focus",
-                optGoal6: "Take Regular Screen Breaks",
-                goalTargetInput: "Target Hours",
+                goalFormTitle: "Set Your Digital Metric Goal",
+                goalDescInput: "Select Metric Goal",
+                optGoal1: "Daily Screen Time Hours",
+                optGoal2: "Social Media Usage Hours",
+                optGoal3: "Gaming App Usage Hours",
+                optGoal4: "Night Time Usage Hours",
+                optGoal5: "Physical Activity (hours/week)",
+                optGoal6: "Sleep Hours",
+                goalTargetInput: "Target Value",
                 goalSubmitBtn: "Save Goal",
                 featuresHeading: "What Our System Provides",
                 featuresSubheading: "Smart tools to help you understand and improve your digital habits.",
@@ -931,8 +931,8 @@
                 feat1Desc: "Analyze your screen time, application usage, social media usage and sleep habits.",
                 feat2Title: "AI Prediction",
                 feat2Desc: "Use a Random Forest machine learning model to assess your Healthy Digital Life level.",
-                feat3Title: "Healthy Digital Life Results",
-                feat3Desc: "View your Healthy Digital Life score, level and overall status.",
+                feat3Title: "Digital Wellbeing Results",
+                feat3Desc: "View your Digital Wellbeing score, level and overall status.",
                 feat4Title: "Recommendations",
                 feat4Desc: "Receive personalized suggestions based on your digital usage patterns.",
                 howHeading: "How It Works",
@@ -982,52 +982,52 @@
                 warningMsg: "⚠️ သတိပေးချက် - သတ်မှတ်ထားသော ရည်မှန်းချက် နာရီပမာဏ ကျော်လွန်သွားပါပြီ။",
                 recHeading: "💡 အကြံပြုချက်များ:",
                 recGoals: {
-                    "Reduce Social Media Usage": [
-                        "ဆိုရှယ်မီဒီယာ အက်ပလီကေးရှင်းများအတွက် သုံးစွဲချိန် ကန့်သတ်ချက် (App Timer) သတ်မှတ်ပါ။",
-                        "အသိပေးချက် (Notification) များကို ပိတ်ထားပြီး သတ်မှတ်ထားသော အချိန်မှသာ ဝင်ရောက်ကြည့်ရှုပါ။",
-                        "ဖုန်းကို ခဏတာ အဝေးတွင်ထားပြီး ဆိုရှယ်မီဒီယာ မဟုတ်သော အခြားအလုပ်များ လုပ်ဆောင်ပါ။"
-                    ],
-                    "Limit Daily Screen Time": [
+                    "Daily_Screen_Time_Hours": [
                         "မျက်လုံးနှင့် စိတ်လက်အနားရစေရန် ဖုန်းမျက်နှာပြင်မှ ပုံမှန် အနားယူပါ။",
                         "မလိုအပ်သော အက်ပလီကေးရှင်း အသိပေးချက်များကို ပိတ်ထားပါ။",
                         "ကျန်ရှိသော အချိန်များကို ပြင်ပလှုပ်ရှားမှုများ သို့မဟုတ် စာဖတ်ခြင်းဖြင့် အစားထိုးပါ။"
                     ],
-                    "Reduce Late-Night Phone Use": [
+                    "Social_Media_Usage_Hours": [
+                        "ဆိုရှယ်မီဒီယာ အက်ပလီကေးရှင်းများအတွက် သုံးစွဲချိန် ကန့်သတ်ချက် (App Timer) သတ်မှတ်ပါ။",
+                        "အသိပေးချက် (Notification) များကို ပိတ်ထားပြီး သတ်မှတ်ထားသော အချိန်မှသာ ဝင်ရောက်ကြည့်ရှုပါ။",
+                        "ဖုန်းကို ခဏတာ အဝေးတွင်ထားပြီး ဆိုရှယ်မီဒီယာ မဟုတ်သော အခြားအလုပ်များ လုပ်ဆောင်ပါ။"
+                    ],
+                    "Gaming_App_Usage_Hours": [
+                        "ဂိမ်းဆော့သည့် အချိန်ကို ကန့်သတ်ရန် စည်းကမ်းရှိသော အချိန်ဇယား သတ်မှတ်ပါ။",
+                        "ဂိမ်းဆော့မည့်အစား ကိုယ်လက်လှုပ်ရှားမှု သို့မဟုတ် အခြား ဝါသနာပါရာများကို လုပ်ဆောင်ပါ။"
+                    ],
+                    "Night_Time_Usage_Hours": [
                         "အိပ်မယာမဝင်မီ မိနစ် ၃၀ အလိုမှစ၍ ဖုန်းသုံးခြင်းကို ရပ်တန့်ပါ။",
                         "ညဘက်အိပ်ချိန်တွင် ဖုန်းကို အိပ်ရာနှင့် အလှမ်းဝေးသော နေရာ၌ ထားပါ။",
                         "ဖုန်းတွင် Night Shift သို့မဟုတ် Blue Light Filter ကို အမြဲတမ်း ဖွင့်သုံးပါ။"
                     ],
-                    "Limit Gaming Time": [
-                        "ဂိမ်းဆော့သည့် အချိန်ကို ကန့်သတ်ရန် စည်းကမ်းရှိသော အချိန်ဇယား သတ်မှတ်ပါ။",
-                        "ဂိမ်းဆော့မည့်အစား ကိုယ်လက်လှုပ်ရှားမှု သို့မဟုတ် အခြား ဝါသနာပါရာများကို လုပ်ဆောင်ပါ။"
+                    "Physical Activity (hours/week)": [
+                        "လမ်းလျှောက်ခြင်း သို့မဟုတ် လေ့ကျင့်ခန်းလုပ်ခြင်းကဲ့သို့သော ကိုယ်လက်လှုပ်ရှားမှုကို တိုးမြှင့်ပါ။",
+                        "အလုပ်ကြာရှောက်လုပ်သည့်အခါ ခဏတာ အကြောလျှော့ပေးပါ။"
                     ],
-                    "Increase Study/Work Focus": [
-                        "စာကျက်ချိန် သို့မဟုတ် အလုပ်လုပ်ချိန် ထိရောက်စေရန် Pomodoro နည်းလမ်းကို အသုံးပြုပါ။",
-                        "အာရုံနောက်စေသော မလိုအပ်သည့် အက်ပလီကေးရှင်းများကို ပိတ်ထားရန် Do Not Disturb မုဒ်ကို ဖွင့်ပါ။"
-                    ],
-                    "Take Regular Screen Breaks": [
-                        "မျက်လုံး ညောင်းညာမှုကို သက်သာစေရန် မိနစ် ၃၀ မှ ၆၀ တိုင်းတွင် မျက်နှာပြင်မှ အဝေးသို့ လှမ်းကြည့်ပါ။",
-                        "အနားယူချိန်တွင် မတ်တပ်ရပ်ပါ၊ ခန္ဓာကိုယ် အကြောလျှော့ပါ သို့မဟုတ် ရေ သောက်ပါ။"
+                    "Sleep_Hours": [
+                        "လုံလောက်သော အိပ်စက်ချိန်ရရှိစေရန် မှန်ကန်သော အိပ်စက်ချိန်ဇယားကို ထိန်းသိမ်းပါ။",
+                        "အိပ်စက်ခါနီးတွင် ဖုန်းမျက်နှာပြင်များကို ကြည့်ရှုခြင်းမှ ရှောင်ကြဉ်ပါ။"
                     ]
                 },
-                goalFormTitle: "ဒစ်ဂျစ်တယ် ကျန်းမာရေး ရည်မှန်းချက် သတ်မှတ်ပါ",
-                goalDescInput: "ရည်မှန်းချက် အမျိုးအစား ရွေးချယ်ပါ",
-                optGoal1: "ဆိုရှယ်မီဒီယာ သုံးစွဲမှုကို လျှော့ချရန်",
-                optGoal2: "နေ့စဉ် Screen သုံးစွဲချိန်ကို ကန့်သတ်ရန်",
-                optGoal3: "ညဉ့်နက်ပိုင်း ဖုန်းသုံးစွဲမှုကို လျှော့ချရန်",
-                optGoal4: "ဂိမ်းဆော့သည့် အချိန်ကို ကန့်သတ်ရန်",
-                optGoal5: "စာကျက်/အလုပ် လုပ်ချိန် အာရုံစိုက်မှု တိုးမြှင့်ရန်",
-                optGoal6: "ဖုန်းမျက်နှာပြင်မှ ပုံမှန် အနားယူပေးရန်",
-                goalTargetInput: "သတ်မှတ် နာရီ",
+                goalFormTitle: "ဒစ်ဂျစ်တယ် တိုင်းတာချက် ရည်မှန်းချက် သတ်မှတ်ပါ",
+                goalDescInput: "ရည်မှန်းချက် တိုင်းတာချက် ရွေးချယ်ပါ",
+                optGoal1: "နေ့စဉ် Screen သုံးစွဲချိန် (နာရီ)",
+                optGoal2: "ဆိုရှယ်မီဒီယာ သုံးစွဲချိန် (နာရီ)",
+                optGoal3: "ဂိမ်းဆော့သည့် အချိန် (နာရီ)",
+                optGoal4: "ညဉ့်နက်ပိုင်း ဖုန်းသုံးစွဲချိန် (နာရီ)",
+                optGoal5: "ကိုယ်လက်လှုပ်ရှားမှု (နာရီ/သီတင်းပတ်)",
+                optGoal6: "အိပ်စက်ချိန် (နာရီ)",
+                goalTargetInput: "သတ်မှတ် တန်ဖိုး",
                 goalSubmitBtn: "သိမ်းဆည်းမည်",
                 featuresHeading: "စနစ်မှ ပံ့ပိုးပေးထားသော ဝန်ဆောင်မှုများ",
                 featuresSubheading: "သင်၏ ဒစ်ဂျစ်တယ် အလေ့အထများကို မြှင့်တင်ရန် ကူညီပေးမည့် နည်းလမ်းများ။",
                 feat1Title: "သုံးစွဲမှု ဆန်းစစ်ချက်",
                 feat1Desc: "Screen time၊ အသုံးပြုသည့် App များ၊ ဆိုရှယ်မီဒီယာ သုံးစွဲမှုနှင့် အိပ်စက်မှု အလေ့အထများကို ဆန်းစစ်ပါ။",
                 feat2Title: "AI ဖြင့် ခန့်မှန်းချက်",
-                feat2Desc: "Random Forest Machine Learning မော်ဒယ်ကို အသုံးပြု၍ သင်၏ အသိပညာအဆင့်ကို ခန့်မှန်းပေးပါသည်။",
+                feat2Desc: "Random Forest Machine Learning မော်ဒယ်ကို အသုံးပြု၍ သင်၏ Awareness Levelကို ခန့်မှန်းပေးပါသည်။",
                 feat3Title: "စစ်ဆေးမှု ရလဒ်များ",
-                feat3Desc: "သင်၏ ကျန်းမာရေး စစ်ဆေးမှု ရမှတ်၊ အသိပညာအဆင့်နှင့် အခြေအနေအရပ်ရပ်ကို ကြည့်ရှုပါ။",
+                feat3Desc: "သင်၏ ကျန်းမာရေး စစ်ဆေးမှု ရမှတ် Awareness Levelနှင့် အခြေအနေအရပ်ရပ်ကို ကြည့်ရှုပါ။",
                 feat4Title: "အကြံပြုချက်များ",
                 feat4Desc: "သင်၏ သုံးစွဲမှုပုံစံပေါ် မူတည်၍ သင့်တော်သော ကိုယ်ပိုင် အကြံပြုချက်များကို ရယူပါ။",
                 howHeading: "အသုံးပြုပုံ အဆင့်ဆင့်",
@@ -1047,7 +1047,7 @@
             }
         };
 
-        let currentLang = localStorage.getItem('app_lang') || 'en';
+        let currentLang = localStorage.getItem('app_lang') || 'my';
 
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.page-section');
@@ -1121,7 +1121,7 @@
 
             // Recommendations List Language Sync
             if (document.getElementById('recHeading')) document.getElementById('recHeading').innerText = t.recHeading;
-            const recList = t.recGoals[currentActiveGoalDesc] || t.recGoals["Reduce Social Media Usage"];
+            const recList = t.recGoals[currentActiveGoalDesc] || t.recGoals["Daily_Screen_Time_Hours"];
             if (recList && document.getElementById('recItem1')) {
                 document.getElementById('recItem1').innerText = recList[0] || '';
                 document.getElementById('recItem2').innerText = recList[1] || '';

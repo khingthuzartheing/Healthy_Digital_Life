@@ -38,46 +38,82 @@
             <div class="icon">📊</div>
             <div>
                 <h1>Usage Analysis</h1>
-                <div class="subtitle">Your digital usage analysis</div>
+                <div class="subtitle">Your digital usage analysis</div> <!-- ဒီနေရာတွင် /div> အစား </div> ဟု အမှန်အတိုင်း ပြင်ပါ -->
             </div>
         </div>
         <div style="text-align: right;">
-            <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid #99f6e4;">← Features</a>
+            <a href="/dashboard?section=features" style="background-color: #ccfbf1; color: #0f766e; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #99f6e4; white-space: nowrap;">
+                ⬅️ Features
+            </a>
         </div>
     </div>
 
-    <div class="card">
+<div class="card">
         <div class="card-title">Healthy Digital Life Overview</div>
         <div class="score-box">
-            <div class="score-label">Healthy Digital Life Score</div>
+            <div class="score-label">Digital Wellbeing Score</div>
             <div class="score" id="score">--</div>
+            <div id="awarenessLevel" style="font-size: 14px; font-weight: 700; color: #0d9488; margin-top: 5px;">Awareness Level: --</div>
         </div>
-            <div class="analysis-grid">
+        
+        <div class="analysis-grid">
+            <!-- User Info Columns -->
+            <div class="analysis-box">
+                <h3>User ID & Age/Gender</h3>
+                <div class="analysis-value" id="userInfoValue" style="font-size: 16px;">--</div>
+                <span id="userStatus" class="status good">Active Profile</span>
+            </div>
+            
+            <!-- Daily Screen Time -->
             <div class="analysis-box">
                 <h3>Daily Screen Time</h3>
                 <div class="analysis-value" id="screenValue">--</div>
                 <span id="screenStatus" class="status"></span>
             </div>
+
+            <!-- Number of Apps Used -->
             <div class="analysis-box">
-                <h3>Total App Usage</h3>
-                <div class="analysis-value" id="appValue">--</div>
-                <span id="appStatus" class="status"></span>
-            </div>
-            <div class="analysis-box">
-                <h3>Number of Apps</h3>
+                <h3>Number of Apps Used</h3>
                 <div class="analysis-value" id="appsValue">--</div>
                 <span id="appsStatus" class="status"></span>
             </div>
+
+            <!-- Social Media Usage -->
             <div class="analysis-box">
                 <h3>Social Media Usage</h3>
                 <div class="analysis-value" id="socialValue">--</div>
                 <span id="socialStatus" class="status"></span>
             </div>
+
+            <!-- Gaming App Usage -->
             <div class="analysis-box">
-                <h3>Gaming Usage</h3>
+                <h3>Gaming App Usage</h3>
                 <div class="analysis-value" id="gamingValue">--</div>
                 <span id="gamingStatus" class="status"></span>
             </div>
+
+            <!-- Notification Count -->
+            <div class="analysis-box">
+                <h3>Notification Count</h3>
+                <div class="analysis-value" id="notificationValue">--</div>
+                <span id="notificationStatus" class="status"></span>
+            </div>
+
+            <!-- Physical Activity -->
+            <div class="analysis-box">
+                <h3>Physical Activity</h3>
+                <div class="analysis-value" id="physicalValue">--</div>
+                <span id="physicalStatus" class="status"></span>
+            </div>
+
+            <!-- Night Time Usage -->
+            <div class="analysis-box">
+                <h3>Night Time Usage</h3>
+                <div class="analysis-value" id="nightValue">--</div>
+                <span id="nightStatus" class="status"></span>
+            </div>
+
+            <!-- Sleep Hours -->
             <div class="analysis-box">
                 <h3>Sleep Duration</h3>
                 <div class="analysis-value" id="sleepValue">--</div>
@@ -95,92 +131,96 @@
 </div>
 
 <script>
-    window.onload = async function () {
-    // 1. Fetch Daily Usage (Critical)
-try {
-    const usageResponse = await fetch("/api/daily_usage");
-    const usageResult = await usageResponse.json();
-
-    if (!usageResult.success) throw new Error("No usage data");
-    const usage = usageResult.data;
-
-    // Screen Time
-    const screenTime = Number(usage.screen_time);
-    document.getElementById("screenValue").innerText = screenTime.toFixed(2) + " hrs";
-    setStatus("screenStatus", screenTime <= 4 ? "Healthy" : (screenTime <= 7 ? "Moderate" : "High"), screenTime <= 4 ? "good" : (screenTime <= 7 ? "warning" : "danger"));
-
-    // App Usage
-    const totalApp = Number(usage.total_app_usage);
-    document.getElementById("appValue").innerText = totalApp.toFixed(2) + " hrs";
-    setStatus("appStatus", totalApp <= 4 ? "Low" : (totalApp <= 7 ? "Moderate" : "High"), totalApp <= 4 ? "good" : (totalApp <= 7 ? "warning" : "danger"));
-
-    // Social Media (Key အမည်အမျိုးမျိုးကို စစ်ဆေးပြီး NaN မဖြစ်အောင် ကာကွယ်ခြင်း)
-    const socialRaw = usage.social_media ?? usage.social_media_usage ?? usage.socialMedia ?? 0;
-    const social = Number(socialRaw) || 0;
-
-    document.getElementById("socialValue").innerText = social.toFixed(2) + " hrs";
-    setStatus("socialStatus", social <= 2 ? "Healthy" : (social <= 4 ? "Moderate" : "High"), social <= 2 ? "good" : (social <= 2 ? "warning" : "danger"));
-    
-    // Gaming (Backend က 'gaming' ဖြစ်လို့ ပြင်ထားပါတယ်)
-    const gaming = Number(usage.gaming_usage || usage.gaming);
-    document.getElementById("gamingValue").innerText = gaming.toFixed(2) + " hrs";
-    setStatus("gamingStatus", gaming <= 2 ? "Healthy" : (gaming <= 4 ? "Moderate" : "High"), gaming <= 2 ? "good" : (gaming <= 4 ? "warning" : "danger"));
-
-    // Sleep
-    const sleep = Number(usage.sleep_hours);
-    document.getElementById("sleepValue").innerText = sleep.toFixed(2) + " hrs";
-    setStatus("sleepStatus", sleep >= 7 ? "Healthy" : (sleep >= 5 ? "Moderate" : "Low"), sleep >= 7 ? "good" : (sleep >= 5 ? "warning" : "danger"));
-
-    // Summary Generation
-    let summary = "";
-    summary += (screenTime > 7 ? "• Daily screen time is high.<br>" : "• Daily screen time is reasonable.<br>");
-    summary += (social > 4 ? "• Social media usage is high.<br>" : "• Social media usage is manageable.<br>");
-    summary += (gaming > 4 ? "• Gaming usage is high.<br>" : "• Gaming usage is manageable.<br>");
-    summary += (sleep < 7 ? "• Sleep duration is below 7 hours.<br>" : "• Sleep duration is good.<br>");
-    summary += "<br><strong>Overall:</strong> Maintain balance.";
-    document.getElementById("summary").innerHTML = summary;
-
-} catch (error) {
-    console.error(error);
-    alert("⚠️ Error loading data. Please ensure you have completed the assessment.");
-    window.location.href = "/assessment";
-    return;
-}
-
-// 2. Fetch Latest Assessment (Non-Critical)
-try {
-    const scoreResponse = await fetch("/api/latest_assessment");
-    const scoreResult = await scoreResponse.json();
-    if (scoreResult.success) {
-        document.getElementById("score").innerText = Number(scoreResult.data.wellbeing_score).toFixed(2);
-    }
-} catch (e) {
-    console.log("Could not load score, skipping.");
-}
-
-    // 3. Current User Check & Apps Status
-    try {
-    const userResp = await fetch("/current_user");
-    const userData = await userResp.json();
-    
-    if (userData.logged_in) {
-        // number_of_apps ရှိပါက အသုံးပြုသူထည့်ခဲ့သော ဂဏန်း + "apps" ပြမည်
-        const appsCount = (userData.number_of_apps !== undefined) ? userData.number_of_apps : 0;
-        document.getElementById("appsValue").innerText = appsCount + " apps";
-        
-        setStatus("appsStatus", "Tracked via Assessment", "good");
-    }
-} catch (e) {
-    console.log("Could not load user data.", e);
-}
-};
-    function setStatus(id, text, className) {
-        const el = document.getElementById(id);
-        if(el) {
+    function setStatus(elementId, text, className) {
+        const el = document.getElementById(elementId);
+        if (el) {
             el.innerText = text;
             el.className = "status " + className;
         }
     }
+
+    window.onload = async function () {
+        try {
+            const usageResponse = await fetch("/api/daily_usage");
+            const usageResult = await usageResponse.json();
+
+            if (!usageResult.success) throw new Error("No usage data");
+            const usage = usageResult.data;
+
+            // 1. User Info 
+            const userId = usage.User_ID ?? usage.user_id ?? usage.id ?? usage.UserID ?? "N/A";
+            const age = usage.Age ?? usage.age ?? usage.user_age ?? usage.UserAge ?? "-";
+            const gender = usage.Gender ?? usage.gender ?? usage.user_gender ?? usage.UserGender ?? "-";
+
+            // Backticks () ကို စာကြောင်းအစနှင့်အဆုံးတွင် သေချာခံပေးပါ
+            document.getElementById("userInfoValue").innerText = `ID: ${userId} | ${age} yrs, | ${gender}`;
+
+           // 2. Daily Screen Time
+           const screenTime = Number(usage.Daily_Screen_Time_Hours ?? 0);
+            document.getElementById("screenValue").innerText = screenTime.toFixed(2) + " hrs";
+            setStatus("screenStatus", screenTime <= 4 ? "Healthy" : (screenTime <= 7 ? "Moderate" : "High"), screenTime <= 4 ? "good" : (screenTime <= 7 ? "warning" : "danger"));
+
+            // 3. Number of Apps Used
+            const appsCount = Number(usage.Number_of_Apps_Used ?? 0);
+            document.getElementById("appsValue").innerText = appsCount + " apps";
+            setStatus("appsStatus", appsCount <= 15 ? "Healthy" : (appsCount <= 25 ? "Moderate" : "High"), appsCount <= 15 ? "good" : (appsCount <= 25 ? "warning" : "danger"));
+
+            // 4. Social Media Usage
+            const social = Number(usage.Social_Media_Usage_Hours ?? 0);
+            document.getElementById("socialValue").innerText = social.toFixed(2) + " hrs";
+            setStatus("socialStatus", social <= 2 ? "Healthy" : (social <= 4 ? "Moderate" : "High"), social <= 2 ? "good" : (social <= 4 ? "warning" : "danger"));
+            
+            // 5. Gaming App Usage
+            const gaming = Number(usage.Gaming_App_Usage_Hours ?? 0);
+            document.getElementById("gamingValue").innerText = gaming.toFixed(2) + " hrs";
+            setStatus("gamingStatus", gaming <= 2 ? "Healthy" : (gaming <= 4 ? "Moderate" : "High"), gaming <= 2 ? "good" : (gaming <= 4 ? "warning" : "danger"));
+
+            // 6. Notification Count
+            const notifications = Number(usage.Notification_Count ?? 0);
+            document.getElementById("notificationValue").innerText = notifications + " alerts";
+            setStatus("notificationStatus", notifications <= 30 ? "Low" : (notifications <= 70 ? "Moderate" : "High"), notifications <= 30 ? "good" : (notifications <= 70 ? "warning" : "danger"));
+
+            // 7. Physical Activity (Backend နှင့် key အမည်တူညီစေရန် ပြင်ထားသည်)
+            const physical = Number(
+                usage.Physical_Activity_Hours_Week ?? 
+                usage.Physical_Activity_Hours ?? 
+                usage.physical_activity ?? 
+                usage.PhysicalActivity ?? 0
+                );
+            document.getElementById("physicalValue").innerText = physical.toFixed(1) + " hrs/wk";
+            setStatus("physicalStatus", physical >= 3 ? "Healthy" : (physical >= 1 ? "Moderate" : "Low"), physical >= 3 ? "good" : (physical >= 1 ? "warning" : "danger"));
+
+            // 8. Night Time Usage (သတ်မှတ်ချက်ကို ချိန်ညှိရန်)
+            const nightTime = Number(usage.Night_Time_Usage_Hours ?? 0);
+            document.getElementById("nightValue").innerText = nightTime.toFixed(2) + " hrs";
+            setStatus("nightStatus", nightTime <= 4 ? "Healthy" : (nightTime <= 6 ? "Moderate" : "High"), nightTime <= 4 ? "good" : (nightTime <= 6 ? "warning" : "danger"));
+
+            // 9. Sleep Hours
+            const sleep = Number(usage.Sleep_Hours ?? 0);
+            document.getElementById("sleepValue").innerText = sleep.toFixed(2) + " hrs";
+            setStatus("sleepStatus", sleep >= 7 ? "Healthy" : (sleep >= 5 ? "Moderate" : "Low"), sleep >= 7 ? "good" : (sleep >= 5 ? "warning" : "danger"));
+
+            // 10. Scores & Awareness Level
+            const wellbeingScore = Number(usage.Digital_Wellbeing_Score ?? 0);
+            document.getElementById("score").innerText = wellbeingScore.toFixed(2);
+            
+            const awareness = usage.Awareness_Level ?? "N/A";
+            document.getElementById("awarenessLevel").innerText = "Awareness Level: " + awareness;
+            
+
+            // Summary Generation
+            let summary = "";
+            summary += (screenTime > 7 ? "• Daily screen time is high.<br>" : "• Daily screen time is reasonable.<br>");
+            summary += (social > 4 ? "• Social media usage is high.<br>" : "• Social media usage is manageable.<br>");
+            summary += (gaming > 4 ? "• Gaming usage is high.<br>" : "• Gaming usage is manageable.<br>");
+            summary += (sleep < 7 ? "• Sleep duration needs improvement.<br>" : "• Sleep duration is healthy.<br>");
+            
+            document.getElementById("summary").innerHTML = summary;
+
+        } catch (error) {
+            console.error("Error loading usage data:", error);
+        }
+    };
 </script>
 </body>
 </html>
