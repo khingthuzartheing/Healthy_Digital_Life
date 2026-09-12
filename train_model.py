@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score, classification_report
 # ==========================================
 
 DATASET_FILE = "training_dataset_for_orange.csv"
-MODEL_FILE = "digital_wellbeing_model.pkcls"
+MODEL_FILE = "digital_wellbeing_model.pkl"
 
 
 # ==========================================
