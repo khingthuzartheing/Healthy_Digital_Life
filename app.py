@@ -220,7 +220,7 @@ def login_required(f):
     return decorated_function
 
 
-TARGET_PAGE_URL = "https://healthy-digital-life-git-main-hdl5.vercel.app/" 
+TARGET_PAGE_URL = "https://30122022khaingthuzarthein.pythonanywhere.com/" 
 
 @app.route('/generate-qr')
 def generate_qr():
@@ -232,7 +232,6 @@ def generate_qr():
     buffer = io.BytesIO()
     img.save(buffer, format="PNG")
     qr_code_img = base64.b64encode(buffer.getvalue()).decode('utf-8')
-    
     return render_template('show_qr.html', qr_code=qr_code_img, target_url=TARGET_PAGE_URL)
 
 @app.route('/welcome-page')
